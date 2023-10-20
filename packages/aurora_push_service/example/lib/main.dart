@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       registrationId = await _auroraPushPlugin.initialize(
-        // TODO: добавьте ваш applicationId
+        // TODO: Add your applicationId from Aurora Center.
         applicationId: '',
       );
       if (registrationId.isNotEmpty) setState(() {});
