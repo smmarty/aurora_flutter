@@ -65,7 +65,7 @@ void main() {
           throwsA(AuroraPushException(
             code: 'init_completer_not_finished',
             message:
-            'initCompleter not finished. You must not call initialize before finishing.',
+                'initCompleter not finished. You must not call initialize before finishing.',
           )));
       // fix infinity test
       async.flushMicrotasks();
