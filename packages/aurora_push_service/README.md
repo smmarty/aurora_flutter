@@ -3,20 +3,50 @@
 Сервис для получения пуш уведомлений от Aurora OS.
 
 ## Getting Started
+Для начала необходимо добавить QT-совместимость в main.cpp вашего приложения. 
 
+Сначала добавьте новый `include`.
+```c++
+#include <flutter/compatibility.h>
+```
+
+Затем добавьте `EnableQtCompatibility()` в вашу `main` функцию.
+```c++
+int main(int argc, char *argv[])
+{
+    Application::Initialize(argc, argv);
+    EnableQtCompatibility(); // Включение "поддержки Qt" для плагинов
+    RegisterPlugins();
+    Application::Launch();
+    return 0;
+}
+```
+
+Также необходимо добавить разрешение на push-уведомления.
+Для этого по пути `aurora/desktop/` в файле `YOUR_APP_NAME.desktop`
+добавьте в Permissions `PushNotifications`.
+```desktop
+[X-Application]
+Permissions=PushNotifications;Internet
+```
+
+После этого можно использовать Flutter плагин.
 ```dart
 // Call after WidgetsFlutterBinding.ensureInitialized();
-final auroraPushPlugin = const AuroraPushPlugin();
+final auroraPushService = const AuroraPushService();
 final notificationPlugin = FlutterLocalNotificationsPlugin();
-final registrationId = await auroraPushPlugin.initialize(
+// Шаг 1: Инициализируйте AuroraPushService.
+final registrationId = await auroraPushService.initialize(
         // TODO: Add your applicationId from Aurora Center
         applicationId: '',
       );
 // ···
-// Send registrationId to your backend and send push message from it.
+// Шаг 2: Сохраните registrationId, по нему вы будете
+// отправлять пуш уведомления этому устройству.
 // ···
+// Шаг 3: Слушайте onMessage stream.
 final messagesSubscription =
-      auroraPushPlugin.onMessage.listen((event) async {
+      auroraPushService.onMessage.listen((event) async {
     await notificationPlugin.show(
       0,
       event.title,
