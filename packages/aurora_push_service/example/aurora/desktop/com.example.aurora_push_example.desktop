@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Name=aurora_push_example
+X-Nemo-Single-Instance=no
+X-Aurora-Single-Cover=yes
+X-Nemo-Application-Type=silica-qt5
+Comment=Demonstrates how to use the aurora_push plugin.
+Icon=com.example.aurora_push_example
+Exec=/usr/bin/com.example.aurora_push_example
+
+[X-Application]
+Permissions=PushNotifications;Internet
+OrganizationName=com.example
+ApplicationName=aurora_push_example
+ExecDBus=/usr/bin/com.example.aurora_push_example %u

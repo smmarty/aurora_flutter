@@ -1,0 +1,83 @@
+# Enabled GitHub actions - https://docs.github.com/actions
+# If you have no configuration, you can set the value to `true` or just leave it
+# empty.
+github:
+  # Specify the `on` key to configure triggering events.
+  # See https://docs.github.com/actions/reference/workflow-syntax-for-github-actions#on
+  # The default values is
+  # on:
+  #   push:
+  #     branches:
+  #       - main
+  #       - master
+  #   pull_request:
+
+  # Setting just `cron` is a shortcut to keep the defaults for `push` and
+  # `pull_request` while adding a single `schedule` entry.
+  # `on` and `cron` cannot both be set.
+  cron: '0 0 * * 0' # “At 00:00 (UTC) on Sunday.”
+
+  # Specify additional environment variables accessible to all jobs
+#  env:
+#    FOO: BAR
+
+  # You can group stages into individual workflows
+  #
+  # Any stages that are omitted here are put in a default workflow
+  # named `dart.yml`.
+  workflows:
+    # The key here is the name of the file - .github/workflows/lint.yml
+    lint:
+      # This populates `name` in the workflow
+      name: Dart Lint CI
+      # These are the stages that are populated in the workflow file
+      stages:
+        - analyze
+
+  # You can add custom github actions configurations to run after completion
+  # of all other jobs here. This accepts normal github job config except that
+  # the `needs` config is filled in for you, and you aren't allowed to pass it.
+  on_completion:
+    # Example job that pings a web hook url stored in a github secret with a
+    # json payload linking to the failed run.
+    - name: "Notify failure"
+      runs-on: ubuntu-latest
+      # By default this job will only run if all dependent jobs are successful,
+      # but we want to run in the failure case for this purpose.
+      if: failure()
+      steps:
+        - run: >
+            curl -H "Content-Type: application/json" -X POST -d \
+              "{'text':'Build failed! ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}'}" \
+              "${CHAT_WEBHOOK_URL}"
+          env:
+            CHAT_WEBHOOK_URL: ${{ secrets.CHAT_WEBHOOK_URL }}
+
+  # You can customize stage ordering as well as make certain stages be
+  # conditional here, this is supported for all CI providers. The `if`
+  # condition should use the appropriate syntax for the provider it is being
+  # configured for.
+  stages:
+    - name: cron
+      # Only run this stage for scheduled cron jobs
+      if: github.event_name == 'schedule'
+
+# Adds a job that runs `mono_repo generate --validate` to check that everything
+# is up to date. You can specify the value as just `true` or give a `stage`
+# you'd like this job to run in.
+self_validate: analyze
+
+# Use this key to merge stages across packages to create fewer jobs
+merge_stages:
+  - analyze
+
+# When using `test_with_coverage`, this setting configures the service that
+# results are uploaded to.
+# Note: you can configure both options, but this would be unusual.
+# Note: you can configure this key with no values, to just generate the files
+#   locally. This may be to enable other, custom processing.
+coverage_service:
+  # https://coveralls.io/ - the default
+  - coveralls
+  # https://codecov.io/ – the other option
+  - codecov
