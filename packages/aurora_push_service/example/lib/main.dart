@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:aurora_push_service/aurora_push_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// ignore_for_file: use_build_context_synchronously
 
 void main() {
   runApp(const MyApp());
