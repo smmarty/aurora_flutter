@@ -1,0 +1,25 @@
+# 2.1.0+9
+- Adapt app to aurora os
+# 2.0.14
+- Avoid letter boxing on foldable devices
+- Timeline: Maintain yr when changing orientation
+- YouTube View: Add play/pause keyboard support
+
+# 2.0.13
+- Add navigation rail for some landscape views
+- Maintain scroll position for Wonder Events and Editorial pages when changing from portrait to landscape
+
+# 2.0.12
+- Artifact search remembers open/closed panel state
+- Add focus state to all buttons
+
+# 2.0.11
+- Fixed landscape not working on some tablets
+- Fixed app restarting when folded, or switching between multi-window mode.
+- Added Events page remembers scroll position when changing layouts
+- Removed currently selected wonder persistence
+- Reduced size of textures used on wonder home page
+
+# 2.0.9
+- Remember currently selected wonder on home page
+- EventsView: switch to two-column layout at aspect ratios > .85
