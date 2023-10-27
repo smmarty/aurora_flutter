@@ -56,7 +56,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   // Отступ, чтоб показывать границы SafeArea
-                  const Divider(),
+                  const Divider(
+                    height: 2,
+                    thickness: 2,
+                  ),
                   Text(
                     widget.title,
                     style: Theme.of(context).textTheme.titleLarge,
