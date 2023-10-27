@@ -1,6 +1,8 @@
 # safe_area_aurora_example
 
-A new Flutter project.
+Альфа версия пакета для поддержки SafeArea клавиатуры и выреза камеры на Авроре.
+Для корректного использования на всех девайсах лучше добавить ограничение
+на DeviceOrientation.up .
 
 ## Getting Started
 
