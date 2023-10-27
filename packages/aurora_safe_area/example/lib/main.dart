@@ -1,7 +1,4 @@
 import 'package:aurora_safe_area/aurora_safe_area.dart';
-import 'package:dbus/dbus.dart';
-import 'package:device_info_plus_aurora/ru_omp_deviceinfo_features.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
