@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=safe_area_aurora_example
+Comment=A new Flutter project.
+Icon=com.example.safe_area_aurora_example
+Exec=/usr/bin/com.example.safe_area_aurora_example
+X-Nemo-Application-Type=silica-qt5
+
+[X-Application]
+Permissions=
+OrganizationName=com.example
+ApplicationName=safe_area_aurora_example
