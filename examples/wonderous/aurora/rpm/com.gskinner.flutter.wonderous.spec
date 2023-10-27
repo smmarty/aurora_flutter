@@ -3,9 +3,9 @@
 
 Name: com.gskinner.flutter.wonderous
 Summary: A new Flutter project.
-Version: 0.1.0
-Release: 1
-License: Proprietary
+Version: 2.1.0
+Release: 10
+License: MIT
 Source0: %{name}-%{version}.tar.zst
 
 BuildRequires: cmake
