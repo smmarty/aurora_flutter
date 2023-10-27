@@ -1,4 +1,4 @@
-part of '../wonders_home_screen.dart';
+part of '../wonderous_home_screen.dart';
 
 /// An arrow that fades out, then fades back in and slides down, ending in it's original position with full opacity.
 class _AnimatedArrowButton extends StatelessWidget {

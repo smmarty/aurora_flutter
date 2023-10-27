@@ -1,4 +1,4 @@
-part of 'wonders_home_screen.dart';
+part of 'wonderous_home_screen.dart';
 
 class _VerticalSwipeController {
   _VerticalSwipeController(this.ticker, this.onSwipeComplete);

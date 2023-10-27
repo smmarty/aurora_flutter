@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.gskinner.flutter" "\0"
-            VALUE "FileDescription", "flutter_wonders_app" "\0"
+            VALUE "FileDescription", "flutter_wonderous_app" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "flutter_wonders_app" "\0"
+            VALUE "InternalName", "flutter_wonderous_app" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 com.gskinner.flutter. All rights reserved." "\0"
-            VALUE "OriginalFilename", "flutter_wonders_app.exe" "\0"
-            VALUE "ProductName", "flutter_wonders_app" "\0"
+            VALUE "OriginalFilename", "flutter_wonderous_app.exe" "\0"
+            VALUE "ProductName", "flutter_wonderous_app" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

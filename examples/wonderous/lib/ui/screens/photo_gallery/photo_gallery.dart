@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/data/unsplash_photo_data.dart';
-import 'package:wonders/ui/common/controls/app_loading_indicator.dart';
-import 'package:wonders/ui/common/controls/eight_way_swipe_detector.dart';
-import 'package:wonders/ui/common/hidden_collectible.dart';
-import 'package:wonders/ui/common/modals/fullscreen_url_img_viewer.dart';
-import 'package:wonders/ui/common/unsplash_photo.dart';
-import 'package:wonders/ui/common/utils/app_haptics.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/data/unsplash_photo_data.dart';
+import 'package:wonderous/ui/common/controls/app_loading_indicator.dart';
+import 'package:wonderous/ui/common/controls/eight_way_swipe_detector.dart';
+import 'package:wonderous/ui/common/hidden_collectible.dart';
+import 'package:wonderous/ui/common/modals/fullscreen_url_img_viewer.dart';
+import 'package:wonderous/ui/common/unsplash_photo.dart';
+import 'package:wonderous/ui/common/utils/app_haptics.dart';
 
 part 'widgets/_animated_cutout_overlay.dart';
 

@@ -1,12 +1,12 @@
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/data/wonder_data.dart';
-import 'package:wonders/logic/data/wonders_data/search/search_data.dart';
-import 'package:wonders/ui/common/app_icons.dart';
-import 'package:wonders/ui/common/controls/app_header.dart';
-import 'package:wonders/ui/common/static_text_scale.dart';
-import 'package:wonders/ui/common/utils/app_haptics.dart';
-import 'package:wonders/ui/screens/artifact/artifact_search/time_range_selector/expanding_time_range_selector.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/data/wonder_data.dart';
+import 'package:wonderous/logic/data/wonderous_data/search/search_data.dart';
+import 'package:wonderous/ui/common/app_icons.dart';
+import 'package:wonderous/ui/common/controls/app_header.dart';
+import 'package:wonderous/ui/common/static_text_scale.dart';
+import 'package:wonderous/ui/common/utils/app_haptics.dart';
+import 'package:wonderous/ui/screens/artifact/artifact_search/time_range_selector/expanding_time_range_selector.dart';
 
 part 'widgets/_result_tile.dart';
 part 'widgets/_results_grid.dart';
@@ -29,14 +29,14 @@ class _ArtifactSearchScreenState extends State<ArtifactSearchScreen>
   List<SearchData> _filteredResults = [];
   String _query = '';
 
-  late final WonderData wonder = wondersLogic.getData(widget.type);
+  late final WonderData wonder = wonderousLogic.getData(widget.type);
   late final PanelController panelController = PanelController(
     settingsLogic.isSearchPanelOpen.value,
   )..addListener(_handlePanelControllerChanged);
   late final SearchVizController vizController = SearchVizController(
     _searchResults,
-    minYear: wondersLogic.timelineStartYear,
-    maxYear: wondersLogic.timelineEndYear,
+    minYear: wonderousLogic.timelineStartYear,
+    maxYear: wonderousLogic.timelineEndYear,
   );
   late double _startYear = wonder.artifactStartYr * 1.0,
       _endYear = wonder.artifactEndYr * 1.0;

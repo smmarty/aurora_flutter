@@ -1,13 +1,13 @@
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/data/wonder_data.dart';
-import 'package:wonders/ui/common/app_backdrop.dart';
-import 'package:wonders/ui/common/app_icons.dart';
-import 'package:wonders/ui/common/controls/app_header.dart';
-import 'package:wonders/ui/common/controls/locale_switcher.dart';
-import 'package:wonders/ui/common/pop_navigator_underlay.dart';
-import 'package:wonders/ui/screens/home_menu/about_dialog_content.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/data/wonder_data.dart';
+import 'package:wonderous/ui/common/app_backdrop.dart';
+import 'package:wonderous/ui/common/app_icons.dart';
+import 'package:wonderous/ui/common/controls/app_header.dart';
+import 'package:wonderous/ui/common/controls/locale_switcher.dart';
+import 'package:wonderous/ui/common/pop_navigator_underlay.dart';
+import 'package:wonderous/ui/screens/home_menu/about_dialog_content.dart';
 
 class HomeMenu extends StatefulWidget {
   const HomeMenu({Key? key, required this.data}) : super(key: key);
@@ -109,23 +109,23 @@ class _HomeMenuState extends State<HomeMenu> {
       mainAxisSize: MainAxisSize.min,
       children: [
         buildRow([
-          _buildGridBtn(context, wondersLogic.all[0]),
-          _buildGridBtn(context, wondersLogic.all[1]),
-          _buildGridBtn(context, wondersLogic.all[2]),
+          _buildGridBtn(context, wonderousLogic.all[0]),
+          _buildGridBtn(context, wonderousLogic.all[1]),
+          _buildGridBtn(context, wonderousLogic.all[2]),
         ]),
         buildRow([
-          _buildGridBtn(context, wondersLogic.all[3]),
+          _buildGridBtn(context, wonderousLogic.all[3]),
           SizedBox(
             width: _btnSize(context),
             child: SvgPicture.asset(SvgPaths.compassFull,
                 colorFilter: $styles.colors.offWhite.colorFilter),
           ),
-          _buildGridBtn(context, wondersLogic.all[4]),
+          _buildGridBtn(context, wonderousLogic.all[4]),
         ]),
         buildRow([
-          _buildGridBtn(context, wondersLogic.all[5]),
-          _buildGridBtn(context, wondersLogic.all[6]),
-          _buildGridBtn(context, wondersLogic.all[7]),
+          _buildGridBtn(context, wonderousLogic.all[5]),
+          _buildGridBtn(context, wonderousLogic.all[6]),
+          _buildGridBtn(context, wonderousLogic.all[7]),
         ]),
       ],
     );

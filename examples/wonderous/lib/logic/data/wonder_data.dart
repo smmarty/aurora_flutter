@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:wonders/logic/data/wonder_type.dart';
-import 'package:wonders/logic/data/wonders_data/search/search_data.dart';
+import 'package:wonderous/logic/data/wonder_type.dart';
+import 'package:wonderous/logic/data/wonderous_data/search/search_data.dart';
 
 class WonderData extends Equatable {
   const WonderData({

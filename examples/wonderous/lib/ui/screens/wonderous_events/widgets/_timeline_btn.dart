@@ -1,4 +1,4 @@
-part of '../wonder_events.dart';
+part of '../wonderous_events.dart';
 
 class _TimelineBtn extends StatelessWidget {
   const _TimelineBtn({Key? key, required this.type, this.width})

@@ -1,23 +1,23 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/common/lazy_indexed_stack.dart';
-import 'package:wonders/ui/common/measurable_widget.dart';
-import 'package:wonders/ui/screens/artifact/artifact_carousel/artifact_carousel_screen.dart';
-import 'package:wonders/ui/screens/editorial/editorial_screen.dart';
-import 'package:wonders/ui/screens/photo_gallery/photo_gallery.dart';
-import 'package:wonders/ui/screens/wonder_details/wonder_details_tab_menu.dart';
-import 'package:wonders/ui/screens/wonder_events/wonder_events.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/ui/common/lazy_indexed_stack.dart';
+import 'package:wonderous/ui/common/measurable_widget.dart';
+import 'package:wonderous/ui/screens/artifact/artifact_carousel/artifact_carousel_screen.dart';
+import 'package:wonderous/ui/screens/editorial/editorial_screen.dart';
+import 'package:wonderous/ui/screens/photo_gallery/photo_gallery.dart';
+import 'package:wonderous/ui/screens/wonderous_details/wonderous_details_tab_menu.dart';
+import 'package:wonderous/ui/screens/wonderous_events/wonderous_events.dart';
 
-class WonderDetailsScreen extends StatefulWidget with GetItStatefulWidgetMixin {
-  WonderDetailsScreen({Key? key, required this.type, this.initialTabIndex = 0})
+class WonderousDetailsScreen extends StatefulWidget with GetItStatefulWidgetMixin {
+  WonderousDetailsScreen({Key? key, required this.type, this.initialTabIndex = 0})
       : super(key: key);
   final WonderType type;
   final int initialTabIndex;
 
   @override
-  State<WonderDetailsScreen> createState() => _WonderDetailsScreenState();
+  State<WonderousDetailsScreen> createState() => _WonderousDetailsScreenState();
 }
 
-class _WonderDetailsScreenState extends State<WonderDetailsScreen>
+class _WonderousDetailsScreenState extends State<WonderousDetailsScreen>
     with GetItStateMixin, SingleTickerProviderStateMixin {
   late final _tabController = TabController(
     length: 4,
@@ -43,7 +43,7 @@ class _WonderDetailsScreenState extends State<WonderDetailsScreen>
   void _handleTabMenuSized(Size size) {
     setState(() {
       _tabBarSize = (_useNavRail ? size.width : size.height) -
-          WonderDetailsTabMenu.buttonInset;
+          WonderousDetailsTabMenu.buttonInset;
     });
   }
 
@@ -51,7 +51,7 @@ class _WonderDetailsScreenState extends State<WonderDetailsScreen>
   Widget build(BuildContext context) {
     _useNavRail = appLogic.shouldUseNavRail();
 
-    final wonder = wondersLogic.getData(widget.type);
+    final wonder = wonderousLogic.getData(widget.type);
     int tabIndex = _tabController.index;
     bool showTabBarBg = tabIndex != 1;
     final tabBarSize = _tabBarSize ?? 0;
@@ -72,7 +72,7 @@ class _WonderDetailsScreenState extends State<WonderDetailsScreen>
                   wonderType: wonder.type),
               ArtifactCarouselScreen(
                   type: wonder.type, contentPadding: menuPadding),
-              WonderEvents(type: widget.type, contentPadding: menuPadding),
+              WonderousEvents(type: widget.type, contentPadding: menuPadding),
             ],
           ),
 
@@ -82,7 +82,7 @@ class _WonderDetailsScreenState extends State<WonderDetailsScreen>
                 _useNavRail ? Alignment.centerLeft : Alignment.bottomCenter,
             child: MeasurableWidget(
               onChange: _handleTabMenuSized,
-              child: WonderDetailsTabMenu(
+              child: WonderousDetailsTabMenu(
                   tabController: _tabController,
                   wonderType: wonder.type,
                   showBg: showTabBarBg,

@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 import 'dart:ui';
 
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/data/wonders_data/search/search_data.dart';
-import 'package:wonders/ui/screens/artifact/artifact_search/artifact_search_screen.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/data/wonderous_data/search/search_data.dart';
+import 'package:wonderous/ui/screens/artifact/artifact_search/artifact_search_screen.dart';
 
 class TimeRangePainter extends CustomPainter {
   final SearchVizController controller;

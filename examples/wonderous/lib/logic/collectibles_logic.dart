@@ -1,6 +1,6 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/common/save_load_mixin.dart';
-import 'package:wonders/logic/data/collectible_data.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/common/save_load_mixin.dart';
+import 'package:wonderous/logic/data/collectible_data.dart';
 
 class CollectiblesLogic with ThrottledSaveLoadMixin {
   @override
@@ -41,13 +41,13 @@ class CollectiblesLogic with ThrottledSaveLoadMixin {
     });
   }
 
-  /// Get a discovered item, sorted by the order of wondersLogic.all
+  /// Get a discovered item, sorted by the order of wonderousLogic.all
   CollectibleData? getFirstDiscoveredOrNull() {
     List<CollectibleData> discovered = [];
     statesById.value.forEach((key, value) {
       if (value == CollectibleState.discovered) discovered.add(fromId(key)!);
     });
-    for (var w in wondersLogic.all) {
+    for (var w in wonderousLogic.all) {
       for (var d in discovered) {
         if (d.wonder == w.type) return d;
       }

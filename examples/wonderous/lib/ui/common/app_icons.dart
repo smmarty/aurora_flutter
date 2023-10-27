@@ -1,5 +1,5 @@
 // ignore_for_file: constant_identifier_names
-import 'package:wonders/common_libs.dart';
+import 'package:wonderous/common_libs.dart';
 
 class AppIcon extends StatelessWidget {
   const AppIcon(this.icon, {Key? key, this.size = 22, this.color})

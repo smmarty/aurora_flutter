@@ -1,10 +1,10 @@
 import 'package:particle_field/particle_field.dart';
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/data/collectible_data.dart';
-import 'package:wonders/ui/common/app_backdrop.dart';
-import 'package:wonders/ui/common/centered_box.dart';
-import 'package:wonders/ui/common/controls/app_header.dart';
-import 'package:wonders/ui/common/pop_navigator_underlay.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/data/collectible_data.dart';
+import 'package:wonderous/ui/common/app_backdrop.dart';
+import 'package:wonderous/ui/common/centered_box.dart';
+import 'package:wonderous/ui/common/controls/app_header.dart';
+import 'package:wonderous/ui/common/pop_navigator_underlay.dart';
 
 part 'widgets/_animated_ribbon.dart';
 part 'widgets/_celebration_particles.dart';

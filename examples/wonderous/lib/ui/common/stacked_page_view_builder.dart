@@ -1,4 +1,4 @@
-import 'package:wonders/common_libs.dart';
+import 'package:wonderous/common_libs.dart';
 
 /// Decouples the scrollable area from the size of the PageView itself.
 /// Helps simplify the layout of the underlying view and can create a better UX with screen-readers.

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gskinner.flutter.wonders">
+    package="com.gskinner.flutter.wonderous">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="Wonderous"

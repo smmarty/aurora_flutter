@@ -1,12 +1,12 @@
-import 'package:wonders/common_libs.dart';
+import 'package:wonderous/common_libs.dart';
 
-class WonderDetailsTabMenu extends StatelessWidget {
+class WonderousDetailsTabMenu extends StatelessWidget {
   static const double buttonInset = 12;
   static const double homeBtnSize = 74;
   static const double minTabSize = 25;
   static const double maxTabSize = 100;
 
-  const WonderDetailsTabMenu(
+  const WonderousDetailsTabMenu(
       {Key? key,
       required this.tabController,
       this.showBg = false,

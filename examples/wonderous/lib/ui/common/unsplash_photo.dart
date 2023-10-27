@@ -1,5 +1,5 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/data/unsplash_photo_data.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/data/unsplash_photo_data.dart';
 
 class UnsplashPhoto extends StatelessWidget {
   const UnsplashPhoto(this.id,

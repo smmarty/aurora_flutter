@@ -1,14 +1,14 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/collectibles_logic.dart';
-import 'package:wonders/logic/locale_logic.dart';
-import 'package:wonders/logic/artifact_api_logic.dart';
-import 'package:wonders/logic/artifact_api_service.dart';
-import 'package:wonders/logic/timeline_logic.dart';
-import 'package:wonders/logic/unsplash_logic.dart';
-import 'package:wonders/logic/wonders_logic.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/collectibles_logic.dart';
+import 'package:wonderous/logic/locale_logic.dart';
+import 'package:wonderous/logic/artifact_api_logic.dart';
+import 'package:wonderous/logic/artifact_api_service.dart';
+import 'package:wonderous/logic/timeline_logic.dart';
+import 'package:wonderous/logic/unsplash_logic.dart';
+import 'package:wonderous/logic/wonderous_logic.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +17,7 @@ void main() async {
 
   // Start app
   registerSingletons();
-  runApp(WondersApp());
+  runApp(WonderousApp());
   await appLogic.bootstrap();
 
   // Remove splash screen when bootstrap is complete
@@ -25,8 +25,8 @@ void main() async {
 }
 
 /// Creates an app using the [MaterialApp.router] constructor and the global `appRouter`, an instance of [GoRouter].
-class WondersApp extends StatelessWidget with GetItMixin {
-  WondersApp({Key? key}) : super(key: key);
+class WonderousApp extends StatelessWidget with GetItMixin {
+  WonderousApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final locale = watchX((SettingsLogic s) => s.currentLocale);
@@ -53,8 +53,8 @@ class WondersApp extends StatelessWidget with GetItMixin {
 void registerSingletons() {
   // Top level app controller
   GetIt.I.registerLazySingleton<AppLogic>(() => AppLogic());
-  // Wonders
-  GetIt.I.registerLazySingleton<WondersLogic>(() => WondersLogic());
+  // wonderous
+  GetIt.I.registerLazySingleton<WonderousLogic>(() => WonderousLogic());
   // Timeline / Events
   GetIt.I.registerLazySingleton<TimelineLogic>(() => TimelineLogic());
   // Search
@@ -73,7 +73,7 @@ void registerSingletons() {
 /// Add syntax sugar for quickly accessing the main "logic" controllers in the app
 /// We deliberately do not create shortcuts for services, to discourage their use directly in the view/widget layer.
 AppLogic get appLogic => GetIt.I.get<AppLogic>();
-WondersLogic get wondersLogic => GetIt.I.get<WondersLogic>();
+WonderousLogic get wonderousLogic => GetIt.I.get<WonderousLogic>();
 TimelineLogic get timelineLogic => GetIt.I.get<TimelineLogic>();
 SettingsLogic get settingsLogic => GetIt.I.get<SettingsLogic>();
 UnsplashLogic get unsplashLogic => GetIt.I.get<UnsplashLogic>();
@@ -83,4 +83,4 @@ LocaleLogic get localeLogic => GetIt.I.get<LocaleLogic>();
 
 /// Global helpers for readability
 AppLocalizations get $strings => localeLogic.strings;
-AppStyle get $styles => WondersAppScaffold.style;
+AppStyle get $styles => WonderousAppScaffold.style;

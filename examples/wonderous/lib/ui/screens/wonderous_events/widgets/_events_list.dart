@@ -1,4 +1,4 @@
-part of '../wonder_events.dart';
+part of '../wonderous_events.dart';
 
 class _EventsList extends StatefulWidget {
   const _EventsList({

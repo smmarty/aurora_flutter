@@ -1,5 +1,5 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/common/utils/app_haptics.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/ui/common/utils/app_haptics.dart';
 
 class SimpleCheckbox extends StatelessWidget {
   const SimpleCheckbox(

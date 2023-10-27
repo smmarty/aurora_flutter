@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "flutter-wonders-app",
+            "name": "wonderous",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "flutter-wonders-app (profile mode)",
+            "name": "flutter-wonderous-app (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "flutter-wonders-app (release mode)",
+            "name": "flutter-wonderous-app (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

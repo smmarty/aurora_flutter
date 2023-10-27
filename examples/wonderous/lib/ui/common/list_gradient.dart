@@ -1,5 +1,5 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/common/gradient_container.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/ui/common/gradient_container.dart';
 
 /// Used for situations where the list content should blend into a background color.
 /// Can be placed at the top or bottom of a list, using the `flip' option when on the bottom

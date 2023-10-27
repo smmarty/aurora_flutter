@@ -1,5 +1,5 @@
-import 'package:wonders/logic/common/http_client.dart';
-import 'package:wonders/logic/data/artifact_data.dart';
+import 'package:wonderous/logic/common/http_client.dart';
+import 'package:wonderous/logic/data/artifact_data.dart';
 
 class ArtifactAPIService {
   final String _baseMETUrl =

@@ -8,7 +8,7 @@
         </style>
     </head>
     <body>
-        This tool builds the CollectibleData list. Wonders should have a blank line between them. Icon names: camera, jewelry, scroll, vase
+        This tool builds the CollectibleData list. wonderous should have a blank line between them. Icon names: camera, jewelry, scroll, vase
         <br>
 <textarea id="input" rows="15" cols="80">
 chichenItza
@@ -56,13 +56,13 @@ tajMahal
         <br>
         <textarea id="output" rows="15" cols="80">Output here.</textarea>
         <script>
-let wonders, wonderIndex, artifactIndex;
+let wonderous, wonderIndex, artifactIndex;
 function run() {
-    let wonderStrs = input.value.split('\n\n');
-    wonders = [];
-    for (let i=0; i<wonderStrs.length; i++) {
-        let o = wonders[i] = {};
-        let lineStrs = wonderStrs[i].split('\n');
+    let wonderoustrs = input.value.split('\n\n');
+    wonderous = [];
+    for (let i=0; i<wonderoustrs.length; i++) {
+        let o = wonderous[i] = {};
+        let lineStrs = wonderoustrs[i].split('\n');
         parseInfo(lineStrs[0], o);
         parseArtifacts(lineStrs.slice(1), o);
     }
@@ -86,8 +86,8 @@ function parseArtifacts(strs, o) {
 }
 
 function loadNext() {
-    if (wonderIndex >= wonders.length) { return out(); }
-    let wonder = wonders[wonderIndex], artifacts = wonder.artifacts;
+    if (wonderIndex >= wonderous.length) { return out(); }
+    let wonder = wonderous[wonderIndex], artifacts = wonder.artifacts;
     if (artifactIndex >= artifacts.length) {
         wonderIndex++;
         artifactIndex = 0;
@@ -104,7 +104,7 @@ function validateResponse(response) {
 }
 
 function parseArtifactData(data) {
-    let wonder = wonders[wonderIndex], o = wonder.artifacts[artifactIndex];
+    let wonder = wonderous[wonderIndex], o = wonder.artifacts[artifactIndex];
     wonder.artifacts[artifactIndex].data = data;
     console.log(data);
     artifactIndex++;
@@ -115,8 +115,8 @@ let icons = ['silhouette', 'foo'];
 function out() {
     // other possibly useful props: objectDate, culture, primaryImage, primaryImageSmall
     let str = '', iconIndex = 0;
-    for (let i=0; i<wonders.length; i++) {
-        let wonder = wonders[i], artifacts = wonder.artifacts;
+    for (let i=0; i<wonderous.length; i++) {
+        let wonder = wonderous[i], artifacts = wonder.artifacts;
         str += `// ${wonder.type}\n`;
         for (let j=0; j<artifacts.length; j++) {
             let o = artifacts[j];

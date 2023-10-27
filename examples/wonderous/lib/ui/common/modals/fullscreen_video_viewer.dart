@@ -1,5 +1,5 @@
 import 'package:pointer_interceptor/pointer_interceptor.dart';
-import 'package:wonders/common_libs.dart';
+import 'package:wonderous/common_libs.dart';
 
 class FullscreenVideoViewer extends StatefulWidget {
   const FullscreenVideoViewer({Key? key, required this.id}) : super(key: key);

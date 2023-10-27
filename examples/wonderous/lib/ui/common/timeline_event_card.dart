@@ -1,6 +1,6 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/common/string_utils.dart';
-import 'package:wonders/ui/common/themed_text.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/common/string_utils.dart';
+import 'package:wonderous/ui/common/themed_text.dart';
 
 class TimelineEventCard extends StatelessWidget {
   const TimelineEventCard(

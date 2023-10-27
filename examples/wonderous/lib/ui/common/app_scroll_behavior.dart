@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
-import 'package:wonders/logic/common/platform_info.dart';
+import 'package:wonderous/logic/common/platform_info.dart';
 
 class AppScrollBehavior extends ScrollBehavior {
   @override

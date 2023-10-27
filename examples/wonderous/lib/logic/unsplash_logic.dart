@@ -1,6 +1,6 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/data/unsplash_photo_data.dart';
-import 'package:wonders/logic/unsplash_service.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/data/unsplash_photo_data.dart';
+import 'package:wonderous/logic/unsplash_service.dart';
 
 class UnsplashLogic {
   final Map<String, List<String>> _idsByCollection =

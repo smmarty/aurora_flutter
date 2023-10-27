@@ -1,9 +1,9 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/common/collectible_item.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/ui/common/collectible_item.dart';
 
-/// Shows a [CollectibleItem], for a specific set of wonders.
+/// Shows a [CollectibleItem], for a specific set of wonderous.
 /// The item is looked up via index, and expects that 3 items always exist for each wonder.
-/// If `wonders` is empty, then the collectible is always shown.
+/// If `wonderous` is empty, then the collectible is always shown.
 class HiddenCollectible extends StatelessWidget with GetItMixin {
   HiddenCollectible(this.currentWonder,
       {Key? key, required this.index, this.matches = const [], this.size = 64})

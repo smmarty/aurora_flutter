@@ -1,6 +1,6 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/common/platform_info.dart';
-import 'package:wonders/logic/common/save_load_mixin.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/common/platform_info.dart';
+import 'package:wonderous/logic/common/save_load_mixin.dart';
 
 class SettingsLogic with ThrottledSaveLoadMixin {
   @override
@@ -40,7 +40,7 @@ class SettingsLogic with ThrottledSaveLoadMixin {
     currentLocale.value = value.languageCode;
     await localeLogic.loadIfChanged(value);
     // Re-init controllers that have some cached data that is localized
-    wondersLogic.init();
+    wonderousLogic.init();
     timelineLogic.init();
   }
 }

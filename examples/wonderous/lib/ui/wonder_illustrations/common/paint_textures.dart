@@ -1,4 +1,4 @@
-import 'package:wonders/common_libs.dart';
+import 'package:wonderous/common_libs.dart';
 
 class IllustrationTexture extends StatelessWidget {
   const IllustrationTexture(this.path,

@@ -4,8 +4,8 @@ class _ScrollingViewportController extends ChangeNotifier {
   _ScrollingViewportController(this.state);
   final _ScalingViewportState state;
 
-  int get startYr => wondersLogic.timelineStartYear;
-  int get endYr => wondersLogic.timelineEndYear;
+  int get startYr => wonderousLogic.timelineStartYear;
+  int get endYr => wonderousLogic.timelineEndYear;
 
   double _zoom = .5;
   double _zoomOnScaleStart = 0;
@@ -22,7 +22,7 @@ class _ScrollingViewportController extends ChangeNotifier {
       setZoom(.5);
       final w = widget.selectedWonder;
       if (w != null) {
-        final data = wondersLogic.getData(w);
+        final data = wonderousLogic.getData(w);
         final pos = calculateScrollPosFromYear(data.startYr);
         scroller.jumpTo(pos - 200);
         scroller.animateTo(pos,

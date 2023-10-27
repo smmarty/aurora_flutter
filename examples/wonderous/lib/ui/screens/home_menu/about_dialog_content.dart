@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/common/modals/fullscreen_web_view.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/ui/common/modals/fullscreen_web_view.dart';
 
 class AboutDialogContent extends StatelessWidget {
   const AboutDialogContent({Key? key}) : super(key: key);

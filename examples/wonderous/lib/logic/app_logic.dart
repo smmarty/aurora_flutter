@@ -3,10 +3,10 @@ import 'dart:ui';
 
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/common/platform_info.dart';
-import 'package:wonders/ui/common/modals/fullscreen_video_viewer.dart';
-import 'package:wonders/ui/common/utils/page_routes.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/common/platform_info.dart';
+import 'package:wonderous/ui/common/modals/fullscreen_video_viewer.dart';
+import 'package:wonderous/ui/common/utils/page_routes.dart';
 
 class AppLogic {
   Size _appSize = Size.zero;
@@ -49,8 +49,8 @@ class AppLogic {
     // Localizations
     await localeLogic.load();
 
-    // Wonders Data
-    wondersLogic.init();
+    // wonderous Data
+    wonderousLogic.init();
 
     // Events
     timelineLogic.init();

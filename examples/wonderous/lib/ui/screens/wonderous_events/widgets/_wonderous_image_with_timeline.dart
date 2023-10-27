@@ -1,7 +1,7 @@
-part of '../wonder_events.dart';
+part of '../wonderous_events.dart';
 
-class _WonderImageWithTimeline extends StatelessWidget {
-  const _WonderImageWithTimeline(
+class _WonderousImageWithTimeline extends StatelessWidget {
+  const _WonderousImageWithTimeline(
       {Key? key, required this.data, required this.height})
       : super(key: key);
   final WonderData data;
@@ -44,8 +44,8 @@ class _WonderImageWithTimeline extends StatelessWidget {
               ExcludeSemantics(
                 child: SizedBox(
                   height: 50,
-                  child: WondersTimelineBuilder(
-                      selectedWonders: [data.type],
+                  child: WonderousTimelineBuilder(
+                      selectedwonderous: [data.type],
                       timelineBuilder: (_, data, isSelected) {
                         return Container(
                           decoration: BoxDecoration(

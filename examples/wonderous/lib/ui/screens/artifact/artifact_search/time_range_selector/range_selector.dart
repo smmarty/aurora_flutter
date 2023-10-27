@@ -1,5 +1,5 @@
 import 'package:flutter/gestures.dart';
-import 'package:wonders/common_libs.dart';
+import 'package:wonderous/common_libs.dart';
 
 // Expandable timerange selector component that further refines Artifact Search based on date range.
 class RangeSelector extends StatefulWidget {

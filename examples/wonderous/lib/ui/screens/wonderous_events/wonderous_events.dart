@@ -1,35 +1,35 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/common/platform_info.dart';
-import 'package:wonders/logic/common/string_utils.dart';
-import 'package:wonders/logic/data/wonder_data.dart';
-import 'package:wonders/ui/common/app_backdrop.dart';
-import 'package:wonders/ui/common/app_icons.dart';
-import 'package:wonders/ui/common/centered_box.dart';
-import 'package:wonders/ui/common/controls/app_header.dart';
-import 'package:wonders/ui/common/curved_clippers.dart';
-import 'package:wonders/ui/common/hidden_collectible.dart';
-import 'package:wonders/ui/common/list_gradient.dart';
-import 'package:wonders/ui/common/themed_text.dart';
-import 'package:wonders/ui/common/timeline_event_card.dart';
-import 'package:wonders/ui/common/wonders_timeline_builder.dart';
-import 'package:wonders/ui/wonder_illustrations/common/wonder_title_text.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/common/platform_info.dart';
+import 'package:wonderous/logic/common/string_utils.dart';
+import 'package:wonderous/logic/data/wonder_data.dart';
+import 'package:wonderous/ui/common/app_backdrop.dart';
+import 'package:wonderous/ui/common/app_icons.dart';
+import 'package:wonderous/ui/common/centered_box.dart';
+import 'package:wonderous/ui/common/controls/app_header.dart';
+import 'package:wonderous/ui/common/curved_clippers.dart';
+import 'package:wonderous/ui/common/hidden_collectible.dart';
+import 'package:wonderous/ui/common/list_gradient.dart';
+import 'package:wonderous/ui/common/themed_text.dart';
+import 'package:wonderous/ui/common/timeline_event_card.dart';
+import 'package:wonderous/ui/common/wonderous_timeline_builder.dart';
+import 'package:wonderous/ui/wonder_illustrations/common/wonder_title_text.dart';
 
 part 'widgets/_events_list.dart';
 part 'widgets/_timeline_btn.dart';
-part 'widgets/_wonder_image_with_timeline.dart';
+part 'widgets/_wonderous_image_with_timeline.dart';
 
-class WonderEvents extends StatefulWidget {
-  const WonderEvents(
+class WonderousEvents extends StatefulWidget {
+  const WonderousEvents(
       {Key? key, required this.type, this.contentPadding = EdgeInsets.zero})
       : super(key: key);
   final WonderType type;
   final EdgeInsets contentPadding;
   @override
-  State<WonderEvents> createState() => _WonderEventsState();
+  State<WonderousEvents> createState() => _WonderousEventsState();
 }
 
-class _WonderEventsState extends State<WonderEvents> {
-  late final _data = wondersLogic.getData(widget.type);
+class _WonderousEventsState extends State<WonderousEvents> {
+  late final _data = wonderousLogic.getData(widget.type);
   final _eventsListKey = GlobalKey<_EventsListState>();
   double _scrollPos = 0;
 
@@ -97,7 +97,7 @@ class _WonderEventsState extends State<WonderEvents> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    _WonderImageWithTimeline(
+                    _WonderousImageWithTimeline(
                         data: _data, height: timelineImageSize),
                     Gap($styles.insets.lg),
                     SizedBox(
@@ -136,7 +136,7 @@ class _WonderEventsState extends State<WonderEvents> {
         child: Stack(
           children: [
             /// Top content, sits underneath scrolling list
-            _WonderImageWithTimeline(height: topHeight, data: _data),
+            _WonderousImageWithTimeline(height: topHeight, data: _data),
 
             /// EventsList + TimelineBtn
             Column(

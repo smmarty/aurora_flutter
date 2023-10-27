@@ -1,7 +1,7 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/common/color_utils.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/common/color_utils.dart';
 
-export 'wonders_color_extensions.dart';
+export 'wonderous_color_extensions.dart';
 
 class AppColors {
   /// Common

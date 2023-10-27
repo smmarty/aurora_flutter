@@ -1,6 +1,6 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/data/wonder_data.dart';
-import 'package:wonders/logic/data/wonders_data/search/search_data.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/data/wonder_data.dart';
+import 'package:wonderous/logic/data/wonderous_data/search/search_data.dart';
 
 part 'search/petra_search_data.dart';
 

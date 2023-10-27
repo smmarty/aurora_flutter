@@ -1,5 +1,5 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/common/utils/context_utils.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/ui/common/utils/context_utils.dart';
 
 class AnimatedListItem extends StatelessWidget {
   const AnimatedListItem(

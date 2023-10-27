@@ -129,7 +129,7 @@ class _ScalingViewportState extends State<_ScrollingViewport> {
                       right: $styles.insets.sm,
                       child: FocusTraversalGroup(
                         //child: Placeholder(),
-                        child: WondersTimelineBuilder(
+                        child: WonderousTimelineBuilder(
                           axis: Axis.vertical,
                           crossAxisGap: max(6, (width - (120 * 3)) / 2),
                           minSize: _minTimelineSize,

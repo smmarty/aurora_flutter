@@ -56,9 +56,9 @@ class _BottomScrubber extends StatelessWidget {
                 color: $styles.colors.greyStrong,
                 borderRadius: BorderRadius.circular($styles.corners.md),
               ),
-              child: WondersTimelineBuilder(
+              child: WonderousTimelineBuilder(
                 crossAxisGap: 4,
-                selectedWonders:
+                selectedwonderous:
                     selectedWonder != null ? [selectedWonder!] : [],
               ),
             ),

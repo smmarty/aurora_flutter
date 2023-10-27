@@ -1,5 +1,5 @@
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wonders/common_libs.dart';
+import 'package:wonderous/common_libs.dart';
 
 class CompassDivider extends StatelessWidget {
   const CompassDivider(

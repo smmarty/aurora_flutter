@@ -51,12 +51,12 @@ class _CollectionListState extends State<_CollectionList> with GetItStateMixin {
   @override
   Widget build(BuildContext context) {
     watchX((CollectiblesLogic o) => o.statesById);
-    List<WonderData> wonders = wondersLogic.all;
+    List<WonderData> wonderous = wonderousLogic.all;
     _vtMode.value = context.isLandscape == false;
     final scrollWonder = scrollTargetWonder;
     // Create list of collections that is shared by both hz and vt layouts
     List<Widget> collections = [
-      ...wonders.map((d) {
+      ...wonderous.map((d) {
         return _CollectionListCard(
           key: d.type == scrollWonder ? widget.scrollKey : null,
           width: _vtMode.value ? null : _CollectionList._hzCardExtent,

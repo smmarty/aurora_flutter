@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:wonders/logic/common/json_prefs_file.dart';
-import 'package:wonders/logic/common/throttler.dart';
+import 'package:wonderous/logic/common/json_prefs_file.dart';
+import 'package:wonderous/logic/common/throttler.dart';
 
 mixin ThrottledSaveLoadMixin {
   late final _file = JsonPrefsFile(fileName);

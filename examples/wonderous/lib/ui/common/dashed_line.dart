@@ -1,4 +1,4 @@
-import 'package:wonders/common_libs.dart';
+import 'package:wonderous/common_libs.dart';
 
 class DashedLine extends StatelessWidget {
   const DashedLine({Key? key, this.vertical = false}) : super(key: key);

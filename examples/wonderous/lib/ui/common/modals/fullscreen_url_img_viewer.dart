@@ -1,6 +1,6 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/common/controls/app_header.dart';
-import 'package:wonders/ui/common/utils/app_haptics.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/ui/common/controls/app_header.dart';
+import 'package:wonderous/ui/common/utils/app_haptics.dart';
 
 class FullscreenUrlImgViewer extends StatefulWidget {
   const FullscreenUrlImgViewer({Key? key, required this.urls, this.index = 0})

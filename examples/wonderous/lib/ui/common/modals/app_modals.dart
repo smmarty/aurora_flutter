@@ -1,5 +1,5 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/common/themed_text.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/ui/common/themed_text.dart';
 
 Future<bool?> showModal(BuildContext context, {required Widget child}) async {
   return await showModalBottomSheet(

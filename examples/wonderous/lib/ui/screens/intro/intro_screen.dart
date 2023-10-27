@@ -1,12 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/common/app_icons.dart';
-import 'package:wonders/ui/common/controls/app_page_indicator.dart';
-import 'package:wonders/ui/common/gradient_container.dart';
-import 'package:wonders/ui/common/static_text_scale.dart';
-import 'package:wonders/ui/common/themed_text.dart';
-import 'package:wonders/ui/common/utils/app_haptics.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/ui/common/app_icons.dart';
+import 'package:wonderous/ui/common/controls/app_page_indicator.dart';
+import 'package:wonderous/ui/common/gradient_container.dart';
+import 'package:wonderous/ui/common/static_text_scale.dart';
+import 'package:wonderous/ui/common/themed_text.dart';
+import 'package:wonderous/ui/common/utils/app_haptics.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({Key? key}) : super(key: key);

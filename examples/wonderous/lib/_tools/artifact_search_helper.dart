@@ -7,12 +7,12 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/data/wonder_data.dart';
-import 'package:wonders/logic/data/wonders_data/search/search_data.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/data/wonder_data.dart';
+import 'package:wonderous/logic/data/wonderous_data/search/search_data.dart';
 
-final int minYear = wondersLogic.timelineStartYear;
-final int maxYear = wondersLogic.timelineEndYear;
+final int minYear = wonderousLogic.timelineStartYear;
+final int maxYear = wonderousLogic.timelineEndYear;
 const int maxRequests = 32;
 
 class ArtifactSearchHelper extends StatefulWidget {
@@ -70,13 +70,13 @@ class _ArtifactSearchHelperState extends State<ArtifactSearchHelper> {
       ..start();
 
     if (selectedWonder == 'All') {
-      wonderQueue = wondersLogic.all.toList();
+      wonderQueue = wonderousLogic.all.toList();
     } else {
       wonderQueue = [
-        wondersLogic.all.firstWhere((o) => o.title == selectedWonder)
+        wonderousLogic.all.firstWhere((o) => o.title == selectedWonder)
       ];
     }
-    _log('Loading data for ${wonderQueue.length} wonders');
+    _log('Loading data for ${wonderQueue.length} wonderous');
     _http = http.Client();
     _nextWonder();
   }
@@ -287,7 +287,7 @@ class _ArtifactSearchHelperState extends State<ArtifactSearchHelper> {
       debugPrint('select a single wonder');
     } else {
       WonderData wonder =
-          wondersLogic.all.firstWhere((o) => o.title == selectedWonder);
+          wonderousLogic.all.firstWhere((o) => o.title == selectedWonder);
       debugPrint(_getSuggestions(wonder.searchData));
     }
   }
@@ -389,7 +389,7 @@ class _ArtifactSearchHelperState extends State<ArtifactSearchHelper> {
   }
 
   Widget _buildWonderPicker(BuildContext context) {
-    List<String> items = wondersLogic.all.map<String>((o) => o.title).toList();
+    List<String> items = wonderousLogic.all.map<String>((o) => o.title).toList();
     items.insert(0, 'All');
 
     return DropdownButton<String>(

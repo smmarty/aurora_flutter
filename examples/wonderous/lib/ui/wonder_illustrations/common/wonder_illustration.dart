@@ -1,13 +1,13 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/wonder_illustrations/chichen_itza_illustration.dart';
-import 'package:wonders/ui/wonder_illustrations/christ_redeemer_illustration.dart';
-import 'package:wonders/ui/wonder_illustrations/colosseum_illustration.dart';
-import 'package:wonders/ui/wonder_illustrations/common/wonder_illustration_config.dart';
-import 'package:wonders/ui/wonder_illustrations/great_wall_illustration.dart';
-import 'package:wonders/ui/wonder_illustrations/machu_picchu_illustration.dart';
-import 'package:wonders/ui/wonder_illustrations/petra_illustration.dart';
-import 'package:wonders/ui/wonder_illustrations/pyramids_giza_illustration.dart';
-import 'package:wonders/ui/wonder_illustrations/taj_mahal_illustration.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/ui/wonder_illustrations/chichen_itza_illustration.dart';
+import 'package:wonderous/ui/wonder_illustrations/christ_redeemer_illustration.dart';
+import 'package:wonderous/ui/wonder_illustrations/colosseum_illustration.dart';
+import 'package:wonderous/ui/wonder_illustrations/common/wonder_illustration_config.dart';
+import 'package:wonderous/ui/wonder_illustrations/great_wall_illustration.dart';
+import 'package:wonderous/ui/wonder_illustrations/machu_picchu_illustration.dart';
+import 'package:wonderous/ui/wonder_illustrations/petra_illustration.dart';
+import 'package:wonderous/ui/wonder_illustrations/pyramids_giza_illustration.dart';
+import 'package:wonderous/ui/wonder_illustrations/taj_mahal_illustration.dart';
 
 /// Convenience class for showing an illustration when all you have is the type.
 class WonderIllustration extends StatelessWidget {

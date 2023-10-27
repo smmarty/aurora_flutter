@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/common/modals//fullscreen_video_viewer.dart';
-import 'package:wonders/ui/common/modals/fullscreen_maps_viewer.dart';
-import 'package:wonders/ui/screens/artifact/artifact_carousel/artifact_carousel_screen.dart';
-import 'package:wonders/ui/screens/artifact/artifact_details/artifact_details_screen.dart';
-import 'package:wonders/ui/screens/artifact/artifact_search/artifact_search_screen.dart';
-import 'package:wonders/ui/screens/collection/collection_screen.dart';
-import 'package:wonders/ui/screens/home/wonders_home_screen.dart';
-import 'package:wonders/ui/screens/intro/intro_screen.dart';
-import 'package:wonders/ui/screens/timeline/timeline_screen.dart';
-import 'package:wonders/ui/screens/wonder_details/wonders_details_screen.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/ui/common/modals//fullscreen_video_viewer.dart';
+import 'package:wonderous/ui/common/modals/fullscreen_maps_viewer.dart';
+import 'package:wonderous/ui/screens/artifact/artifact_carousel/artifact_carousel_screen.dart';
+import 'package:wonderous/ui/screens/artifact/artifact_details/artifact_details_screen.dart';
+import 'package:wonderous/ui/screens/artifact/artifact_search/artifact_search_screen.dart';
+import 'package:wonderous/ui/screens/collection/collection_screen.dart';
+import 'package:wonderous/ui/screens/home/wonderous_home_screen.dart';
+import 'package:wonderous/ui/screens/intro/intro_screen.dart';
+import 'package:wonderous/ui/screens/timeline/timeline_screen.dart';
+import 'package:wonderous/ui/screens/wonderous_details/wonderous_details_screen.dart';
 
 /// Shared paths / urls used across the app
 class ScreenPaths {
@@ -37,7 +37,7 @@ final appRouter = GoRouter(
   routes: [
     ShellRoute(
         builder: (context, router, navigator) {
-          return WondersAppScaffold(child: navigator);
+          return WonderousAppScaffold(child: navigator);
         },
         routes: [
           AppRoute(
@@ -48,7 +48,7 @@ final appRouter = GoRouter(
           AppRoute(ScreenPaths.intro, (_) => IntroScreen()),
           AppRoute('/wonder/:type', (s) {
             int tab = int.tryParse(s.queryParams['t'] ?? '') ?? 0;
-            return WonderDetailsScreen(
+            return WonderousDetailsScreen(
               type: _parseWonderType(s.params['type']),
               initialTabIndex: tab,
             );

@@ -1,5 +1,5 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/data/artifact_data.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/data/artifact_data.dart';
 
 class HighlightData {
   HighlightData({
@@ -26,7 +26,7 @@ class HighlightData {
   final WonderType wonder;
 
   String get id => artifactId;
-  String get subtitle => wondersLogic.getData(wonder).artifactCulture;
+  String get subtitle => wonderousLogic.getData(wonder).artifactCulture;
 
   String get imageUrl => ArtifactData.getSelfHostedImageUrl(artifactId);
   String get imageUrlSmall =>

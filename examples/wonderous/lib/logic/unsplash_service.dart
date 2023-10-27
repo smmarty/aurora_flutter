@@ -1,5 +1,5 @@
 import 'package:unsplash_client/unsplash_client.dart';
-import 'package:wonders/logic/data/unsplash_photo_data.dart';
+import 'package:wonderous/logic/data/unsplash_photo_data.dart';
 
 /// Note: This service is no-longer used in the production app, but exist to enable development tools like [UnsplashDownloadService]
 String unsplashAccessKey = 'dxqHsX7IOURA5hfh0fuhL-cuX6q2-5DqghC77mnmrAU';

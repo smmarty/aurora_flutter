@@ -1,5 +1,5 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/common/app_icons.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/ui/common/app_icons.dart';
 
 /// Shared methods across button types
 Widget _buildIcon(BuildContext context, AppIcons icon,

@@ -1,4 +1,4 @@
-import 'package:wonders/common_libs.dart';
+import 'package:wonderous/common_libs.dart';
 
 class DefaultTextColor extends StatelessWidget {
   const DefaultTextColor({Key? key, required this.color, required this.child})

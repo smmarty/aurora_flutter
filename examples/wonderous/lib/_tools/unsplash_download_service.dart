@@ -3,14 +3,14 @@ import 'dart:io';
 
 import 'package:http/http.dart' show get;
 import 'package:path_provider/path_provider.dart';
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/data/wonder_data.dart';
-import 'package:wonders/logic/unsplash_service.dart';
-import 'package:wonders/logic/wonders_logic.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/data/wonder_data.dart';
+import 'package:wonderous/logic/unsplash_service.dart';
+import 'package:wonderous/logic/wonderous_logic.dart';
 
 class UnsplashDownloadService {
   static final UnsplashService _unsplash = UnsplashService();
-  static final WondersLogic _wondersLogic = WondersLogic();
+  static final WonderousLogic _wonderousLogic = WonderousLogic();
 
   /// Downloads one image in various sizes
   static Future<int> downloadImageSet(String id) async {
@@ -49,7 +49,7 @@ class UnsplashDownloadService {
   /// Downloads all images for all collections
   static Future<void> downloadAllCollections() async {
     /// Note: intentionally not in parallel so as to not annoy the unsplash servers
-    for (var w in _wondersLogic.all) {
+    for (var w in _wonderousLogic.all) {
       await downloadCollectionImages(w);
     }
   }
@@ -59,7 +59,7 @@ class UnsplashDownloadService {
   static Future<void> printPhotosByCollectionIdMap() async {
     /// Note: intentionally not in parallel so as to not annoy the unsplash servers
     Map<String, List<String>> imageListByCollectionId = {};
-    for (var w in _wondersLogic.all) {
+    for (var w in _wonderousLogic.all) {
       final collection =
           await _unsplash.loadCollectionPhotos(w.unsplashCollectionId) ?? [];
       imageListByCollectionId[w.unsplashCollectionId] = collection;

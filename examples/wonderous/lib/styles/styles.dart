@@ -2,7 +2,7 @@
 
 import 'dart:ui';
 
-import 'package:wonders/common_libs.dart';
+import 'package:wonderous/common_libs.dart';
 
 export 'colors.dart';
 

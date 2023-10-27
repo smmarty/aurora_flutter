@@ -1,16 +1,16 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/data/wonder_data.dart';
-import 'package:wonders/ui/common/app_icons.dart';
-import 'package:wonders/ui/common/controls/app_header.dart';
-import 'package:wonders/ui/common/controls/app_page_indicator.dart';
-import 'package:wonders/ui/common/gradient_container.dart';
-import 'package:wonders/ui/common/themed_text.dart';
-import 'package:wonders/ui/common/utils/app_haptics.dart';
-import 'package:wonders/ui/screens/home_menu/home_menu.dart';
-import 'package:wonders/ui/wonder_illustrations/common/animated_clouds.dart';
-import 'package:wonders/ui/wonder_illustrations/common/wonder_illustration.dart';
-import 'package:wonders/ui/wonder_illustrations/common/wonder_illustration_config.dart';
-import 'package:wonders/ui/wonder_illustrations/common/wonder_title_text.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/data/wonder_data.dart';
+import 'package:wonderous/ui/common/app_icons.dart';
+import 'package:wonderous/ui/common/controls/app_header.dart';
+import 'package:wonderous/ui/common/controls/app_page_indicator.dart';
+import 'package:wonderous/ui/common/gradient_container.dart';
+import 'package:wonderous/ui/common/themed_text.dart';
+import 'package:wonderous/ui/common/utils/app_haptics.dart';
+import 'package:wonderous/ui/screens/home_menu/home_menu.dart';
+import 'package:wonderous/ui/wonder_illustrations/common/animated_clouds.dart';
+import 'package:wonderous/ui/wonder_illustrations/common/wonder_illustration.dart';
+import 'package:wonderous/ui/wonder_illustrations/common/wonder_illustration_config.dart';
+import 'package:wonderous/ui/wonder_illustrations/common/wonder_title_text.dart';
 
 part '_vertical_swipe_controller.dart';
 part 'widgets/_animated_arrow_button.dart';
@@ -27,12 +27,12 @@ class HomeScreen extends StatefulWidget with GetItStatefulWidgetMixin {
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late final PageController _pageController;
-  List<WonderData> get _wonders => wondersLogic.all;
+  List<WonderData> get _wonderous => wonderousLogic.all;
   bool _isMenuOpen = false;
 
   /// Set initial wonderIndex
   late int _wonderIndex = 0;
-  int get _numWonders => _wonders.length;
+  int get _numwonderous => _wonderous.length;
 
   /// Used to polish the transition when leaving this page for the details view.
   /// Used to capture the _swipeAmt at the time of transition, and freeze the wonder foreground in place as we transition away.
@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen>
   /// Using individual tweens is more efficient than tween the entire parent
   final _fadeAnims = <AnimationController>[];
 
-  WonderData get currentWonder => _wonders[_wonderIndex];
+  WonderData get currentWonder => _wonderous[_wonderIndex];
 
   late final _VerticalSwipeController _swipeController =
       _VerticalSwipeController(this, _showDetailsPage);
@@ -57,15 +57,15 @@ class _HomeScreenState extends State<HomeScreen>
     super.initState();
     // Create page controller,
     // allow 'infinite' scrolling by starting at a very high page, or remember the previous value
-    final initialPage = _numWonders * 9999;
+    final initialPage = _numwonderous * 9999;
     _pageController =
         PageController(viewportFraction: 1, initialPage: initialPage);
-    _wonderIndex = initialPage % _numWonders;
+    _wonderIndex = initialPage % _numwonderous;
   }
 
   void _handlePageChanged(value) {
     setState(() {
-      _wonderIndex = value % _numWonders;
+      _wonderIndex = value % _numwonderous;
     });
     AppHaptics.lightImpact();
   }
@@ -80,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen>
     );
     setState(() => _isMenuOpen = false);
     if (pickedWonder != null) {
-      _setPageIndex(_wonders.indexWhere((w) => w.type == pickedWonder));
+      _setPageIndex(_wonderous.indexWhere((w) => w.type == pickedWonder));
     }
   }
 
@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen>
     if (index == _wonderIndex) return;
     // To support infinite scrolling, we can't jump directly to the pressed index. Instead, make it relative to our current position.
     final pos =
-        ((_pageController.page ?? 0) / _numWonders).floor() * _numWonders;
+        ((_pageController.page ?? 0) / _numwonderous).floor() * _numwonderous;
     _pageController.jumpToPage(pos + index);
   }
 
@@ -137,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen>
               /// Background
               ..._buildBgAndClouds(),
 
-              /// Wonders Illustrations (main content)
+              /// wonderous Illustrations (main content)
               _buildMgPageView(),
 
               /// Foreground illustrations and gradients
@@ -164,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen>
         controller: _pageController,
         onPageChanged: _handlePageChanged,
         itemBuilder: (_, index) {
-          final wonder = _wonders[index % _wonders.length];
+          final wonder = _wonderous[index % _wonderous.length];
           final wonderType = wonder.type;
           bool isShowing = _isSelected(wonderType);
           return _swipeController.buildListener(
@@ -184,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen>
   List<Widget> _buildBgAndClouds() {
     return [
       // Background
-      ..._wonders.map((e) {
+      ..._wonderous.map((e) {
         final config =
             WonderIllustrationConfig.bg(isShowing: _isSelected(e.type));
         return WonderIllustration(e.type, config: config);
@@ -234,7 +234,7 @@ class _HomeScreenState extends State<HomeScreen>
       ),
 
       /// Foreground decorators
-      ..._wonders.map((e) {
+      ..._wonderous.map((e) {
         return _swipeController.buildListener(builder: (swipeAmt, _, child) {
           final config = WonderIllustrationConfig.fg(
             isShowing: _isSelected(e.type),
@@ -291,7 +291,7 @@ class _HomeScreenState extends State<HomeScreen>
                             ),
                             Gap($styles.insets.md),
                             AppPageIndicator(
-                              count: _numWonders,
+                              count: _numwonderous,
                               controller: _pageController,
                               color: $styles.colors.white,
                               dotSize: 8,

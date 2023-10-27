@@ -1,12 +1,12 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/common/string_utils.dart';
-import 'package:wonders/logic/data/wonder_data.dart';
-import 'package:wonders/ui/common/app_icons.dart';
-import 'package:wonders/ui/common/opening_card.dart';
-import 'package:wonders/ui/common/wonders_timeline_builder.dart';
-import 'package:wonders/ui/screens/artifact/artifact_search/artifact_search_screen.dart';
-import 'package:wonders/ui/screens/artifact/artifact_search/time_range_selector/range_selector.dart';
-import 'package:wonders/ui/screens/artifact/artifact_search/time_range_selector/time_range_painter.dart';
+import 'package:wonderous/common_libs.dart';
+import 'package:wonderous/logic/common/string_utils.dart';
+import 'package:wonderous/logic/data/wonder_data.dart';
+import 'package:wonderous/ui/common/app_icons.dart';
+import 'package:wonderous/ui/common/opening_card.dart';
+import 'package:wonderous/ui/common/wonderous_timeline_builder.dart';
+import 'package:wonderous/ui/screens/artifact/artifact_search/artifact_search_screen.dart';
+import 'package:wonderous/ui/screens/artifact/artifact_search/time_range_selector/range_selector.dart';
+import 'package:wonderous/ui/screens/artifact/artifact_search/time_range_selector/time_range_painter.dart';
 
 // Expandable timerange selector component that further refines Artifact Search based on date range.
 class ExpandingTimeRangeSelector extends StatefulWidget {
@@ -256,10 +256,10 @@ class _OpenedTimeRange extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: RangeSelector.handleWidth, vertical: 12),
-                child: WondersTimelineBuilder(
+                child: WonderousTimelineBuilder(
                   crossAxisGap: 6,
                   minSize: 16,
-                  selectedWonders: [wonder.type],
+                  selectedwonderous: [wonder.type],
                   timelineBuilder: (_, __, sel) => Container(
                     decoration: BoxDecoration(
                       color: $styles.colors.offWhite
@@ -275,8 +275,8 @@ class _OpenedTimeRange extends StatelessWidget {
             Positioned.fill(
               child: RangeSelector(
                 key: ValueKey('RangeSelectorIsWonderTime'),
-                min: wondersLogic.timelineStartYear * 1.0,
-                max: wondersLogic.timelineEndYear * 1.0,
+                min: wonderousLogic.timelineStartYear * 1.0,
+                max: wonderousLogic.timelineEndYear * 1.0,
                 minDelta: 500,
                 start: startYear,
                 end: endYear,
