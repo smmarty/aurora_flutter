@@ -39,27 +39,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool enableSafeArea = true;
-  String _deviceModel = '';
-
-  @override
-  void initState() {
-    super.initState();
-    if (kIsAurora) {
-      getDeviceInfo();
-    }
-  }
-
-  Future<void> getDeviceInfo() async {
-    final client = DBusClient.session();
-    final features = RuOmpDeviceinfoFeatures(client, 'ru.omp.deviceinfo',
-        DBusObjectPath('/ru/omp/deviceinfo/Features'));
-    final deviceModel = await features.callgetDeviceModel();
-
-    if (!mounted) return;
-    setState(() {
-      _deviceModel = deviceModel;
-    });
-  }
 
   @override
   Widget build(BuildContext ctx) {
@@ -76,15 +55,13 @@ class _MyHomePageState extends State<MyHomePage> {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  // Отступ, чтоб показывать границы SafeArea
+                  const Divider(),
                   Text(
                     widget.title,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 12),
-                  Text(
-                    'Device Model: $_deviceModel',
-                  ),
-                  const SizedBox(height: 8),
                   Text(
                     'Global Padding: ${MediaQuery.paddingOf(context)}',
                   ),

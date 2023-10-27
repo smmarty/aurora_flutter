@@ -24,6 +24,10 @@ class AuroraSafeArea extends StatefulWidget {
 class _AuroraSafeAreaState extends State<AuroraSafeArea> {
   StreamSubscription<double>? _streamSubscription;
   double _keyboardHeight = 0;
+  double _notchHeight = 0;
+  final _devices = {
+    'TrustPhone T1': 32.0,
+  };
 
   @override
   void initState() async {
@@ -32,7 +36,7 @@ class _AuroraSafeAreaState extends State<AuroraSafeArea> {
     if (!_cachedAuroraPlatform) return;
     // FlutterKeyboardVisibilityAuroraPlatform.instance.onChangeHeight();
     //FlutterKeyboardVisibilityAuroraPlatform.instance.getKeyboardHeight();
-    // getDeviceInfo();
+    getDeviceInfo();
     // use hack because we cant get height direct
     _streamSubscription = FlutterKeyboardVisibilityAuroraPlatform.instance
         .onChangeHeight()
@@ -51,9 +55,8 @@ class _AuroraSafeAreaState extends State<AuroraSafeArea> {
     final features = RuOmpDeviceinfoFeatures(client, 'ru.omp.deviceinfo',
         DBusObjectPath('/ru/omp/deviceinfo/Features'));
     final deviceModel = await features.callgetDeviceModel();
-
-    if (deviceModel == 'some device') {
-      // la la la
+    if (_devices.containsKey(deviceModel)) {
+      _notchHeight = _devices[deviceModel]!;
     }
   }
 
@@ -68,38 +71,35 @@ class _AuroraSafeAreaState extends State<AuroraSafeArea> {
     // Пропускаем если это не аврора
     if (!_cachedAuroraPlatform) return widget.child;
     final mq = MediaQuery.of(context);
-    final orientation = mq.orientation;
     final viewInsets = mq.viewInsets;
     final padding = mq.padding;
-    switch (mq.orientation) {
-      case Orientation.portrait:
-        // if has notch, add padding on top or bottom with keyboard
-        // TODO: Handle this case.
-        break;
-      case Orientation.landscape:
-        // if tablet skip all
-        // if has notch, add padding on left or right
-        // TODO: Handle this case.
-        break;
+    final orientation = mq.orientation;
+    EdgeInsets? devicePadding;
+    if (_notchHeight > 0) {
+      switch (orientation) {
+        case Orientation.portrait:
+          devicePadding = EdgeInsets.fromLTRB(
+            padding.left,
+            _notchHeight,
+            padding.right,
+            _notchHeight,
+          );
+          break;
+        case Orientation.landscape:
+          devicePadding = EdgeInsets.fromLTRB(
+            _notchHeight,
+            padding.top,
+            _notchHeight,
+            padding.bottom,
+          );
+          break;
+      }
     }
-    const notchSize = 0.0;
-    // do stuff on aurora
+
     return MediaQuery(
       data: mq.copyWith(
-        padding: EdgeInsets.fromLTRB(
-          padding.left,
-          // calc if has notch
-          notchSize,
-          padding.right,
-          padding.bottom,
-        ),
-        viewPadding: EdgeInsets.fromLTRB(
-          padding.left,
-          // calc if has notch
-          notchSize,
-          padding.right,
-          padding.bottom,
-        ),
+        padding: devicePadding,
+        viewPadding: devicePadding,
         viewInsets: EdgeInsets.fromLTRB(
           viewInsets.left,
           viewInsets.top,
