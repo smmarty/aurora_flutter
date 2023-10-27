@@ -3,6 +3,9 @@ library aurora_safe_area;
 import 'dart:async';
 import 'dart:io';
 
+import 'package:dbus/dbus.dart';
+import 'package:device_info_plus_aurora/device_info_plus_aurora.dart';
+import 'package:device_info_plus_aurora/ru_omp_deviceinfo_features.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility_aurora/flutter_keyboard_visibility_aurora_platform_interface.dart';
 
@@ -23,13 +26,13 @@ class _AuroraSafeAreaState extends State<AuroraSafeArea> {
   double _keyboardHeight = 0;
 
   @override
-  void initState() {
+  void initState() async {
     super.initState();
     _cachedAuroraPlatform = _isAurora();
     if (!_cachedAuroraPlatform) return;
     // FlutterKeyboardVisibilityAuroraPlatform.instance.onChangeHeight();
     //FlutterKeyboardVisibilityAuroraPlatform.instance.getKeyboardHeight();
-
+    // getDeviceInfo();
     // use hack because we cant get height direct
     _streamSubscription = FlutterKeyboardVisibilityAuroraPlatform.instance
         .onChangeHeight()
@@ -39,6 +42,19 @@ class _AuroraSafeAreaState extends State<AuroraSafeArea> {
         _keyboardHeight = event;
       });
     });
+  }
+
+  Future<void> getDeviceInfo() async {
+    final client = DBusClient.session();
+
+    // Features
+    final features = RuOmpDeviceinfoFeatures(client, 'ru.omp.deviceinfo',
+        DBusObjectPath('/ru/omp/deviceinfo/Features'));
+    final deviceModel = await features.callgetDeviceModel();
+
+    if (deviceModel == 'some device') {
+      // la la la
+    }
   }
 
   @override

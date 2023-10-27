@@ -1,4 +1,7 @@
 import 'package:aurora_safe_area/aurora_safe_area.dart';
+import 'package:dbus/dbus.dart';
+import 'package:device_info_plus_aurora/ru_omp_deviceinfo_features.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -36,6 +39,27 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool enableSafeArea = true;
+  String _deviceModel = '';
+
+  @override
+  void initState() {
+    super.initState();
+    if (kIsAurora) {
+      getDeviceInfo();
+    }
+  }
+
+  Future<void> getDeviceInfo() async {
+    final client = DBusClient.session();
+    final features = RuOmpDeviceinfoFeatures(client, 'ru.omp.deviceinfo',
+        DBusObjectPath('/ru/omp/deviceinfo/Features'));
+    final deviceModel = await features.callgetDeviceModel();
+
+    if (!mounted) return;
+    setState(() {
+      _deviceModel = deviceModel;
+    });
+  }
 
   @override
   Widget build(BuildContext ctx) {
@@ -56,22 +80,27 @@ class _MyHomePageState extends State<MyHomePage> {
                     widget.title,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 12),
                   Text(
-                    'Global Padding ${MediaQuery.paddingOf(context)}',
+                    'Device Model: $_deviceModel',
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Global Padding: ${MediaQuery.paddingOf(context)}',
                   ),
                   Text(
-                    'Local Padding ${MediaQuery.paddingOf(ctx)}',
+                    'Local Padding: ${MediaQuery.paddingOf(ctx)}',
                   ),
                   Text(
-                    'ViewInsets ${MediaQuery.viewInsetsOf(ctx)}',
+                    'ViewInsets: ${MediaQuery.viewInsetsOf(ctx)}',
                   ),
                   Text(
-                    'Global ViewPadding ${MediaQuery.viewPaddingOf(context)}',
+                    'Global ViewPadding: ${MediaQuery.viewPaddingOf(context)}',
                   ),
                   Text(
-                    'Local ViewPadding ${MediaQuery.viewPaddingOf(ctx)}',
+                    'Local ViewPadding: ${MediaQuery.viewPaddingOf(ctx)}',
                   ),
+                  const SizedBox(height: 8),
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
@@ -80,6 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                     child: Text('SafeArea: $enableSafeArea'),
                   ),
+                  const SizedBox(height: 8),
                   ElevatedButton(
                     onPressed: () {
                       showBottomSheet(
@@ -107,6 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                     child: const Text('Открыть модалку'),
                   ),
+                  const SizedBox(height: 8),
                 ],
               ),
               const Padding(

@@ -11,6 +11,13 @@ dependencies:
   cupertino_icons: ^1.0.2
   aurora_safe_area:
     path: ../
+  device_info_plus: ^9.0.3
+  device_info_plus_aurora:
+    git:
+      url: https://gitlab.com/omprussia/flutter/flutter-plugins.git
+      ref: d612b55b2cf3b3a8cfbb3ef004460cf8613e66f4
+      path: packages/device_info_plus/device_info_plus_aurora
+  dbus: any
 
 dev_dependencies:
   flutter_test:
