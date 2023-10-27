@@ -84,7 +84,7 @@ class _AuroraSafeAreaState extends State<AuroraSafeArea> {
             padding.left,
             _notchHeight,
             padding.right,
-            _notchHeight,
+            padding.bottom,
           );
           break;
         case Orientation.landscape:
