@@ -12,8 +12,8 @@ class MockLocationAuroraPlatform
   Future<LocationData> getLocation() {
     return Future.value(LocationData.fromMap(
       {
-        'latitude': 50,
-        'longitude': 50,
+        'latitude': 50.0,
+        'longitude': 50.0,
       },
     ));
   }
@@ -51,8 +51,8 @@ void main() {
     MockLocationAuroraPlatform fakePlatform = MockLocationAuroraPlatform();
     LocationAuroraPlatform.instance = fakePlatform;
     final testLocation = LocationData.fromMap({
-      'latitude': 50,
-      'longitude': 50,
+      'latitude': 50.0,
+      'longitude': 50.0,
     });
     expect(await locationAuroraPlugin.getLocation(), testLocation);
   });

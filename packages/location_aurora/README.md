@@ -15,7 +15,7 @@ dependencies:
   location: ^5.0.3
   location_aurora:
     hosted: https://pub-aurora.friflex.com
-    version: 1.0.0
+    version: ^1.0.0
 ```
 
 You need to add QT compatibility to main.cpp your app.
