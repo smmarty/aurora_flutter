@@ -1,16 +1,14 @@
 //
 //  Generated file. Do not edit.
 //
-
-// clang-format off
-
-#include <flutter/application.h>
+#include <flutter/flutter_aurora.h>
 #include <location_aurora/location_aurora_plugin.h>
 
 #include "generated_plugin_registrant.h"
 
+namespace aurora {
 void RegisterPlugins() {
-    Application::RegisterPlugins({
-        std::make_shared<LocationAuroraPlugin>(),
-    });
+  flutter::PluginRegistrar* registrar = GetPluginRegistrar();
+  LocationAuroraPlugin::RegisterWithRegistrar(registrar);
+}
 }
