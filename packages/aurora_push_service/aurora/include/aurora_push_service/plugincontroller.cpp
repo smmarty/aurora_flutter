@@ -57,7 +57,7 @@
 // #include <auroraapp.h>
 #include <nemonotifications-qt5/notification.h>
 
-#include <aurora_push/aurora_push_plugin.h>
+#include <aurora_push_service/aurora_push_service_plugin.h>
 #include <flutter/method-channel.h>
 
 //******************************************************************************
@@ -86,7 +86,7 @@ class PluginController::impl
 PluginController::impl::impl(PluginController * owner)
     : m_o(owner)
     , m_notificationsClient(new Aurora::PushNotifications::Client(owner))
-    , m_notificationsChannel("friflex/aurora_push", MethodCodecType::Standard)
+    , m_notificationsChannel("friflex/aurora_push_service", MethodCodecType::Standard)
 {
 
 }

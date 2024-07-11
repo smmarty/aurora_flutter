@@ -23,4 +23,4 @@ flutter:
   plugin:
     platforms:
       aurora:
-        pluginClass: AuroraPushPlugin
+        pluginClass: AuroraPushServicePlugin

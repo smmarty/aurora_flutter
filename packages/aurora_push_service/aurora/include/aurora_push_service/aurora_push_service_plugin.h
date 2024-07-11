@@ -7,11 +7,11 @@
 //******************************************************************************
 //******************************************************************************
 
-#ifndef FLUTTER_PLUGIN_AURORA_PUSH_PLUGIN_H
-#define FLUTTER_PLUGIN_AURORA_PUSH_PLUGIN_H
+#ifndef FLUTTER_PLUGIN_AURORA_PUSH_SERVICE_PLUGIN_H
+#define FLUTTER_PLUGIN_AURORA_PUSH_SERVICE_PLUGIN_H
 
 #include <flutter/plugin-interface.h>
-#include <aurora_push/globals.h>
+#include <aurora_push_service/globals.h>
 
 #include <QtCore/QObject>
 
@@ -19,10 +19,10 @@
 
 //******************************************************************************
 //******************************************************************************
-class PLUGIN_EXPORT AuroraPushPlugin final : public PluginInterface
+class PLUGIN_EXPORT AuroraPushServicePlugin final : public PluginInterface
 {
 public:
-    AuroraPushPlugin();
+    AuroraPushServicePlugin();
     
 public:
     void RegisterWithRegistrar(PluginRegistrar &registrar) override;
@@ -37,4 +37,4 @@ private:
     std::shared_ptr<impl> m_p;
 };
 
-#endif /* FLUTTER_PLUGIN_AURORA_PUSH_PLUGIN_H */
+#endif /* FLUTTER_PLUGIN_AURORA_PUSH_SERVICE_PLUGIN_H */
