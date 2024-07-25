@@ -1,8 +1,9 @@
 name: url_launcher_aurora
 description: Aurora OS implementation of the url_launcher plugin.
 version: 0.1.0
+#homepage: https://pub-aurora.friflex.com/packages/url_launcher_aurora
+homepage: https://github.com/smmarty/aurora_flutter/tree/main/packages/url_launcher_aurora
 repository: https://github.com/smmarty/aurora_flutter/tree/main/packages/url_launcher_aurora
-homepage: https://pub-aurora.friflex.com/packages/url_launcher_aurora
 publish_to: https://pub-aurora.friflex.com
 
 environment:

@@ -1,8 +1,10 @@
 name: aurora_push_service
 description: A new Flutter plugin project for Aurora OS to get Push Messages.
 version: 0.2.0+2
+#homepage: https://pub-aurora.friflex.com/packages/aurora_push_service
+homepage: https://github.com/smmarty/aurora_flutter/tree/main/packages/aurora_push_service
+repository: https://github.com/smmarty/aurora_flutter/tree/main/packages/aurora_push_service
 publish_to: https://pub-aurora.friflex.com
-homepage: "https://github.com/smmarty/aurora_flutter/tree/main/packages/aurora_push_service"
 
 environment:
   sdk: '>=2.18.6 <4.0.0'
