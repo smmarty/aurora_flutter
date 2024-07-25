@@ -1,4 +1,4 @@
-# Created with package:mono_repo v6.6.0
+# Created with package:mono_repo v6.6.1
 name: Dart Lint CI
 on:
   push:
@@ -29,27 +29,27 @@ jobs:
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
       - name: Setup Dart SDK
-        uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
+        uses: dart-lang/setup-dart@b64355ae6ca0b5d484f0106a033dd1388965d06d
         with:
           sdk: stable
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - name: mono_repo self validate
-        run: dart pub global activate mono_repo 6.6.0
+        run: dart pub global activate mono_repo 6.6.1
       - name: mono_repo self validate
         run: dart pub global run mono_repo generate --validate
   job_002:
-    name: "analyze; `dart format --output=none --set-exit-if-changed .`"
+    name: "analyze; PKGS: packages/aurora_push_service, packages/location_aurora, packages/mobile_scanner, packages/url_launcher_aurora, packages/vibration_aurora, packages/video_player_aurora; `dart format --output=none --set-exit-if-changed .`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aurora_push_service;commands:format"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aurora_push_service-packages/location_aurora-packages/mobile_scanner-packages/url_launcher_aurora-packages/vibration_aurora-packages/video_player_aurora;commands:format"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aurora_push_service
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aurora_push_service-packages/location_aurora-packages/mobile_scanner-packages/url_launcher_aurora-packages/vibration_aurora-packages/video_player_aurora
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -69,17 +69,62 @@ jobs:
         run: "dart format --output=none --set-exit-if-changed ."
         if: "always() && steps.packages_aurora_push_service_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aurora_push_service
+      - id: packages_location_aurora_pub_upgrade
+        name: packages/location_aurora; flutter pub upgrade
+        run: flutter pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/location_aurora
+      - name: "packages/location_aurora; dart format --output=none --set-exit-if-changed ."
+        run: "dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_location_aurora_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/location_aurora
+      - id: packages_mobile_scanner_pub_upgrade
+        name: packages/mobile_scanner; flutter pub upgrade
+        run: flutter pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/mobile_scanner
+      - name: "packages/mobile_scanner; dart format --output=none --set-exit-if-changed ."
+        run: "dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_mobile_scanner_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/mobile_scanner
+      - id: packages_url_launcher_aurora_pub_upgrade
+        name: packages/url_launcher_aurora; flutter pub upgrade
+        run: flutter pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/url_launcher_aurora
+      - name: "packages/url_launcher_aurora; dart format --output=none --set-exit-if-changed ."
+        run: "dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_url_launcher_aurora_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/url_launcher_aurora
+      - id: packages_vibration_aurora_pub_upgrade
+        name: packages/vibration_aurora; flutter pub upgrade
+        run: flutter pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/vibration_aurora
+      - name: "packages/vibration_aurora; dart format --output=none --set-exit-if-changed ."
+        run: "dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_vibration_aurora_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/vibration_aurora
+      - id: packages_video_player_aurora_pub_upgrade
+        name: packages/video_player_aurora; flutter pub upgrade
+        run: flutter pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/video_player_aurora
+      - name: "packages/video_player_aurora; dart format --output=none --set-exit-if-changed ."
+        run: "dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_video_player_aurora_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/video_player_aurora
   job_003:
-    name: "analyze; `flutter analyze`"
+    name: "analyze; PKGS: packages/aurora_push_service, packages/location_aurora, packages/mobile_scanner, packages/url_launcher_aurora, packages/vibration_aurora, packages/video_player_aurora; `flutter analyze`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aurora_push_service;commands:analyze"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aurora_push_service-packages/location_aurora-packages/mobile_scanner-packages/url_launcher_aurora-packages/vibration_aurora-packages/video_player_aurora;commands:analyze"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aurora_push_service
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aurora_push_service-packages/location_aurora-packages/mobile_scanner-packages/url_launcher_aurora-packages/vibration_aurora-packages/video_player_aurora
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -99,6 +144,51 @@ jobs:
         run: flutter analyze
         if: "always() && steps.packages_aurora_push_service_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aurora_push_service
+      - id: packages_location_aurora_pub_upgrade
+        name: packages/location_aurora; flutter pub upgrade
+        run: flutter pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/location_aurora
+      - name: packages/location_aurora; flutter analyze
+        run: flutter analyze
+        if: "always() && steps.packages_location_aurora_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/location_aurora
+      - id: packages_mobile_scanner_pub_upgrade
+        name: packages/mobile_scanner; flutter pub upgrade
+        run: flutter pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/mobile_scanner
+      - name: packages/mobile_scanner; flutter analyze
+        run: flutter analyze
+        if: "always() && steps.packages_mobile_scanner_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/mobile_scanner
+      - id: packages_url_launcher_aurora_pub_upgrade
+        name: packages/url_launcher_aurora; flutter pub upgrade
+        run: flutter pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/url_launcher_aurora
+      - name: packages/url_launcher_aurora; flutter analyze
+        run: flutter analyze
+        if: "always() && steps.packages_url_launcher_aurora_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/url_launcher_aurora
+      - id: packages_vibration_aurora_pub_upgrade
+        name: packages/vibration_aurora; flutter pub upgrade
+        run: flutter pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/vibration_aurora
+      - name: packages/vibration_aurora; flutter analyze
+        run: flutter analyze
+        if: "always() && steps.packages_vibration_aurora_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/vibration_aurora
+      - id: packages_video_player_aurora_pub_upgrade
+        name: packages/video_player_aurora; flutter pub upgrade
+        run: flutter pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/video_player_aurora
+      - name: packages/video_player_aurora; flutter analyze
+        run: flutter analyze
+        if: "always() && steps.packages_video_player_aurora_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/video_player_aurora
   job_004:
     name: Notify failure
     runs-on: ubuntu-latest

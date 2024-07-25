@@ -10,7 +10,6 @@ library;
 
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import 'package:video_player_aurora/video_player_aurora.dart';
 
 void main() {
   runApp(

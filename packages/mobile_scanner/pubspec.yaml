@@ -5,18 +5,6 @@ repository: https://github.com/smmarty/aurora_flutter/tree/main/packages/mobile_
 homepage: https://pub-aurora.friflex.com/packages/mobile_scanner
 publish_to: https://pub-aurora.friflex.com
 
-screenshots:
-- description: 'Flutter Demo Home Page'
-  path: example/screenshots/homepage.png
-- description: 'Mobile Scanner with controller'
-  path: example/screenshots/controller.png
-- description: 'Mobile Scanner with controller (returning image)'
-  path: example/screenshots/returningImage.png
-- description: 'Mobile Scanner with zoom slider'
-  path: example/screenshots/zoomSlider.png
-- description: 'Mobile Scanner with overlay'
-  path: example/screenshots/overlay.png
-
 environment:
   sdk: ">=3.2.0 <4.0.0"
   flutter: ">=3.16.0"
