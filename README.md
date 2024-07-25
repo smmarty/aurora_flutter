@@ -8,6 +8,15 @@
 
 Также плагины доступны в [Aurora pub](https://pub-aurora.friflex.com/packages).
 
+| Плагин                                               | Описание                                                                                                                                                   |
+|------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [aurora_push_service](packages/aurora_push_service/) | A new Flutter plugin project for Aurora OS to get Push Messages.                                                                                           |
+| [location_aurora](packages/location_aurora/)         | The Aurora OS implementation of location_aurora.                                                                                                           |
+| [mobile_scanner](packages/mobile_scanner/)           | A universal barcode and QR code scanner for Flutter based on MLKit. Uses CameraX on Android, AVFoundation on iOS and Apple Vision & AVFoundation on macOS. |
+| [url_launcher_aurora](packages/url_launcher_aurora/) | Aurora OS implementation of the url_launcher plugin.                                                                                                       |
+| [vibration_aurora](packages/vibration_aurora/)       | A plugin for handling Vibration API on Aurora OS                                                                                                           |
+| [video_player_aurora](packages/video_player_aurora/) | Aurora video player flutter plugin                                                                                                                         |
+
 ## Проблемы
 
 Если у вас нашли проблемы, баги или у вас есть предложение по новому функционалу,
