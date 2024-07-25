@@ -1,0 +1,30 @@
+name: url_launcher_aurora
+description: Aurora OS implementation of the url_launcher plugin.
+version: 0.1.0
+#homepage: https://pub-aurora.friflex.com/packages/url_launcher_aurora
+homepage: https://github.com/smmarty/aurora_flutter/tree/main/packages/url_launcher_aurora
+repository: https://github.com/smmarty/aurora_flutter/tree/main/packages/url_launcher_aurora
+publish_to: https://pub-aurora.friflex.com
+
+environment:
+  sdk: '>=3.2.2 <4.0.0'
+  flutter: '>=3.16.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  plugin_platform_interface: ^2.1.3
+  url_launcher_platform_interface: ^2.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  plugin:
+    implements: url_launcher
+    platforms:
+      aurora:
+        pluginClass: UrlLauncherAuroraPlugin
+        dartPluginClass: UrlLauncherAurora

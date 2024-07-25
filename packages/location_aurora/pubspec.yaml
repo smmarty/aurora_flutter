@@ -3,8 +3,10 @@
 name: location_aurora
 description: The Aurora OS implementation of location_aurora.
 version: 1.0.0
+#homepage: https://pub-aurora.friflex.com/packages/location_aurora
+homepage: https://github.com/smmarty/aurora_flutter/tree/main/packages/location_aurora
+repository: https://github.com/smmarty/aurora_flutter/tree/main/packages/location_aurora
 publish_to: https://pub-aurora.friflex.com
-homepage: "https://github.com/smmarty/aurora_flutter/tree/main/packages/location_aurora"
 
 environment:
   sdk: '>=2.19.0 <4.0.0'
