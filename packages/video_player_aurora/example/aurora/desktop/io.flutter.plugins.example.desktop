@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=example
+Comment=A new Flutter project.
+Icon=io.flutter.plugins.example
+Exec=/usr/bin/io.flutter.plugins.example
+X-Nemo-Application-Type=silica-qt5
+
+[X-Application]
+Permissions=Videos
+OrganizationName=io.flutter.plugins
+ApplicationName=example

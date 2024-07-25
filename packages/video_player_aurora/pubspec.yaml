@@ -1,0 +1,27 @@
+name: video_player_aurora
+description: Aurora video player flutter plugin
+version: 0.1.0
+repository: https://github.com/smmarty/aurora_flutter/tree/main/packages/video_player_aurora
+homepage: https://pub-aurora.friflex.com/packages/video_player_aurora
+publish_to: https://pub-aurora.friflex.com
+
+environment:
+  sdk: ">=2.18.0 <4.0.0"
+  flutter: ">=3.7.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  video_player_platform_interface: ^6.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    implements: video_player
+    platforms:
+      aurora:
+        pluginClass: VideoPlayerAuroraPlugin
+        dartPluginClass: VideoPlayerAurora
