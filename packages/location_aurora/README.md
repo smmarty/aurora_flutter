@@ -15,21 +15,21 @@ dependencies:
   location: ^5.0.3
   location_aurora:
     hosted: https://pub-aurora.friflex.com
-    version: ^1.0.0
+    version: ^1.1.0
 ```
 
 You need to add QT compatibility to main.cpp your app.
 
 ```main.cpp
-#include <flutter/application.h>
-#include <flutter/compatibility.h>
+#include <flutter/flutter_aurora.h>
+#include <flutter/flutter_compatibility_qt.h>
 #include "generated_plugin_registrant.h"
 
 int main(int argc, char *argv[]) {
-    Application::Initialize(argc, argv);
-    EnableQtCompatibility();
-    RegisterPlugins();
-    Application::Launch();
+    aurora::Initialize(argc, argv);
+    aurora::EnableQtCompatibility();
+    aurora::RegisterPlugins();
+    aurora::Launch();
     return 0;
 }
 ```

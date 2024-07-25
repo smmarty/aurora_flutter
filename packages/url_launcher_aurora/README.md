@@ -11,7 +11,7 @@ Federated плагин к `url_launcher` для поддержки открыт�
 ```yaml
 url_launcher_aurora:
   hosted: https://pub-aurora.friflex.com
-  version: 0.1.0
+  version: 0.1.0+1
 ```
 
 ### Platform
@@ -19,7 +19,7 @@ url_launcher_aurora:
 
 Сначала добавьте новый `include`.
 ```c++
-#include <flutter/compatibility.h>
+#include <flutter/flutter_compatibility_qt.h>
 ```
 
 Затем добавьте `EnableQtCompatibility()` в вашу `main` функцию.

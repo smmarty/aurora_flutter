@@ -7,24 +7,20 @@
 #ifndef FLUTTER_PLUGIN_LOCATION_AURORA_PLUGIN_H
 #define FLUTTER_PLUGIN_LOCATION_AURORA_PLUGIN_H
 
-#include <flutter/plugin-interface.h>
+#include <flutter/plugin_registrar.h>
 #include <location_aurora/globals.h>
 
 #include <memory>
 
 //******************************************************************************
 //******************************************************************************
-class PLUGIN_EXPORT LocationAuroraPlugin final : public PluginInterface
+class PLUGIN_EXPORT LocationAuroraPlugin final : public flutter::Plugin
 {
 public:
-    LocationAuroraPlugin();
+    LocationAuroraPlugin(flutter::PluginRegistrar * registrar);
 
 public:
-    void RegisterWithRegistrar(PluginRegistrar &registrar) override;
-
-private:
-    void onMethodCall(const MethodCall &call);
-    void unimplemented(const MethodCall &call);
+    static void RegisterWithRegistrar(flutter::PluginRegistrar * registrar);
 
 private:
     class impl;

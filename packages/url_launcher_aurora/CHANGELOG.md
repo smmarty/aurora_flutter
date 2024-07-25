@@ -1,3 +1,5 @@
-## 0.1.0
+## 0.1.0+1
+* Исправили гайд в README
 
-Initial release
+## 0.1.0
+* Initial release
