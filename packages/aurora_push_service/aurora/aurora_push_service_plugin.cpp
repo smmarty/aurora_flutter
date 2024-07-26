@@ -8,10 +8,10 @@
 //******************************************************************************
 //******************************************************************************
 
-#include "aurora_push/plugincontroller.h"
-#include "aurora_push/pluginservice.h"
+#include "aurora_push_service/plugincontroller.h"
+#include "aurora_push_service/pluginservice.h"
 
-#include <aurora_push/aurora_push_plugin.h>
+#include <aurora_push_service/aurora_push_service_plugin.h>
 #include <flutter/method-channel.h>
 
 #include <QtDBus/QtDBus>
@@ -19,9 +19,9 @@
 
 //******************************************************************************
 //******************************************************************************
-class AuroraPushPlugin::impl
+class AuroraPushServicePlugin::impl
 {
-    friend class AuroraPushPlugin;
+    friend class AuroraPushServicePlugin;
 
     std::shared_ptr<PluginController> m_controller;
     std::shared_ptr<PluginService>    m_service;
@@ -29,7 +29,7 @@ class AuroraPushPlugin::impl
 
 //******************************************************************************
 //******************************************************************************
-AuroraPushPlugin::AuroraPushPlugin()
+AuroraPushServicePlugin::AuroraPushServicePlugin()
     : PluginInterface()
     , m_p(new impl)
 {
@@ -38,9 +38,9 @@ AuroraPushPlugin::AuroraPushPlugin()
 
 //******************************************************************************
 //******************************************************************************
-void AuroraPushPlugin::RegisterWithRegistrar(PluginRegistrar &registrar)
+void AuroraPushServicePlugin::RegisterWithRegistrar(PluginRegistrar &registrar)
 {
-    registrar.RegisterMethodChannel("friflex/aurora_push",
+    registrar.RegisterMethodChannel("friflex/aurora_push_service",
                                     MethodCodecType::Standard,
                                     [this](const MethodCall &call) 
                                     { 
@@ -50,7 +50,7 @@ void AuroraPushPlugin::RegisterWithRegistrar(PluginRegistrar &registrar)
 
 //******************************************************************************
 //******************************************************************************
-void AuroraPushPlugin::onMethodCall(const MethodCall & call)
+void AuroraPushServicePlugin::onMethodCall(const MethodCall & call)
 {
     const auto &method = call.GetMethod();
 
@@ -65,7 +65,7 @@ void AuroraPushPlugin::onMethodCall(const MethodCall & call)
 
 //******************************************************************************
 //******************************************************************************
-void AuroraPushPlugin::init(const MethodCall & call)
+void AuroraPushServicePlugin::init(const MethodCall & call)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -89,7 +89,7 @@ void AuroraPushPlugin::init(const MethodCall & call)
 
 //******************************************************************************
 //******************************************************************************
-void AuroraPushPlugin::unimplemented(const MethodCall &call)
+void AuroraPushServicePlugin::unimplemented(const MethodCall &call)
 {
     //  TODO(mozerrr): заменить на void SendErrorResponse(const std::string &code, const std::string &message, const Encodable &details) const;
     call.SendSuccessResponse(nullptr);

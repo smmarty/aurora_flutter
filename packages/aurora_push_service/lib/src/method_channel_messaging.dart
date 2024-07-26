@@ -13,7 +13,7 @@ import 'aurora_push_platform_interface.dart';
 
 class MethodChannelAuroraMessaging extends AuroraPushPlatform {
   @visibleForTesting
-  static const channel = MethodChannel('friflex/aurora_push');
+  static const channel = MethodChannel('friflex/aurora_push_service');
 
   @visibleForTesting
   static Completer<String>? initCompleter;

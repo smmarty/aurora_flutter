@@ -4,8 +4,8 @@
 ** BSD-style license that can be found in the LICENSE file.
 *******************************************************************************/
 
-#ifndef FLUTTER_PLUGIN_AURORA_PUSH_PLUGIN_GLOBALS_H
-#define FLUTTER_PLUGIN_AURORA_PUSH_PLUGIN_GLOBALS_H
+#ifndef FLUTTER_PLUGIN_AURORA_PUSH_SERVICE_PLUGIN_GLOBALS_H
+#define FLUTTER_PLUGIN_AURORA_PUSH_SERVICE_PLUGIN_GLOBALS_H
 
 #ifdef PLUGIN_IMPL
 #define PLUGIN_EXPORT __attribute__((visibility("default")))
@@ -13,4 +13,4 @@
 #define PLUGIN_EXPORT
 #endif
 
-#endif /* FLUTTER_PLUGIN_AURORA_PUSH_PLUGIN_GLOBALS_H */
+#endif /* FLUTTER_PLUGIN_AURORA_PUSH_SERVICE_PLUGIN_GLOBALS_H */
