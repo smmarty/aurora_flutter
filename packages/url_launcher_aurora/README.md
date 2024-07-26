@@ -11,7 +11,7 @@ Federated плагин к `url_launcher` для поддержки открыт�
 ```yaml
 url_launcher_aurora:
   hosted: https://pub-aurora.friflex.com
-  version: 0.1.0+1
+  version: 0.1.0+2
 ```
 
 ### Platform
