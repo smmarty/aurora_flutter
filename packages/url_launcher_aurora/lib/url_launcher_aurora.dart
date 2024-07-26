@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher_platform_interface/link.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
-const MethodChannel _channel = MethodChannel('friflex/url_launcher_aurora');
+const MethodChannel _channel = MethodChannel('plugins.flutter.io/url_launcher');
 
 class UrlLauncherAurora extends UrlLauncherPlatform {
   /// Registers this class as the default instance of [UrlLauncherPlatform].

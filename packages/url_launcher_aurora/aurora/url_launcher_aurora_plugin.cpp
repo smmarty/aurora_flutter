@@ -72,7 +72,7 @@ private:
 //******************************************************************************
 namespace 
 {
-    const char * g_channelName        = "friflex/url_launcher_aurora";
+    const char * g_channelName        = "plugins.flutter.io/url_launcher";
     const char * g_launchError        = "Launch error";
     const char * g_incorrectArguments = "Incorrect arguments";
     const char * g_canLaunchMethod    = "canLaunch";
