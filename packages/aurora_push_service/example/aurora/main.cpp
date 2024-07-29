@@ -2,15 +2,15 @@
  * SPDX-FileCopyrightText: Copyright 2023 Open Mobile Platform LLC <community@omp.ru>
  * SPDX-License-Identifier: BSD-3-Clause
  */
-#include <flutter/application.h>
-#include <flutter/compatibility.h>
+#include <flutter/flutter_aurora.h>
+#include <flutter/flutter_compatibility_qt.h>
 #include "generated_plugin_registrant.h"
 
 int main(int argc, char *argv[]) 
 {
-    Application::Initialize(argc, argv);
-    EnableQtCompatibility();
-    RegisterPlugins();
-    Application::Launch();
+    aurora::Initialize(argc, argv);
+    aurora::EnableQtCompatibility();
+    aurora::RegisterPlugins();
+    aurora::Launch();
     return 0;
 }

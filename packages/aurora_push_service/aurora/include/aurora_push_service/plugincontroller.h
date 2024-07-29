@@ -48,7 +48,8 @@
 
 #include <push_client.h>
 
-#include <flutter/method-channel.h>
+#include <flutter/method_channel.h>
+#include <flutter/plugin_registrar.h>
 
 #include <QtCore/QObject>
 
@@ -61,7 +62,7 @@ class PluginController : public QObject
     Q_OBJECT
 
 public:
-    explicit PluginController(QObject *parent = nullptr);
+    explicit PluginController(flutter::PluginRegistrar * registrar, QObject *parent = nullptr);
 
     QString applicationId() const;
     void setApplicationId(const QString & applicationId);

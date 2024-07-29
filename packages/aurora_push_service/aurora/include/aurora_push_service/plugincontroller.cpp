@@ -54,11 +54,37 @@
 #include <QtGui/QGuiApplication>
 #include <QtQml/QQmlContext>
 #include <QtQuick/QQuickView>
-// #include <auroraapp.h>
+
+#include <flutter/encodable_value.h>
+#include <flutter/method_channel.h>
+#include <flutter/standard_method_codec.h>
+#include <flutter/event_channel.h>
+#include <flutter/event_stream_handler_functions.h>
+
 #include <nemonotifications-qt5/notification.h>
 
 #include <aurora_push_service/aurora_push_service_plugin.h>
-#include <flutter/method-channel.h>
+
+//******************************************************************************
+//******************************************************************************
+
+// Flutter encodable
+typedef flutter::EncodableValue EncodableValue;
+typedef flutter::EncodableMap   EncodableMap;
+typedef flutter::EncodableList  EncodableList;
+// Flutter methods
+typedef flutter::MethodChannel<EncodableValue> MethodChannel;
+typedef flutter::MethodCall<EncodableValue>    MethodCall;
+typedef flutter::MethodResult<EncodableValue>  MethodResult;
+typedef flutter::EventChannel<EncodableValue>  EventChannel;
+typedef flutter::EventSink<EncodableValue>     EventSink;
+
+//******************************************************************************
+//******************************************************************************
+namespace Channels 
+{
+    const char * Events = "friflex/aurora_push_service";
+} // namespace Channels
 
 //******************************************************************************
 //******************************************************************************
@@ -70,32 +96,54 @@ class PluginController::impl
     PluginController * m_o;
 
     //
+    std::unique_ptr<EventChannel>  m_eventChannel; 
+    std::unique_ptr<EventSink>     m_eventSink;
+
+    //
     Aurora::PushNotifications::Client * m_notificationsClient;
 
     //
     QString m_registrationId;
 
-    //
-    MethodChannel m_notificationsChannel;
-
-    impl(PluginController * owner);
+    impl(PluginController * owner, flutter::PluginRegistrar * registrar);
 };
 
 //******************************************************************************
 //******************************************************************************
-PluginController::impl::impl(PluginController * owner)
+PluginController::impl::impl(PluginController * owner, flutter::PluginRegistrar * registrar)
     : m_o(owner)
     , m_notificationsClient(new Aurora::PushNotifications::Client(owner))
-    , m_notificationsChannel("friflex/aurora_push_service", MethodCodecType::Standard)
+    , m_eventChannel(new EventChannel(registrar->messenger(),
+                                        Channels::Events,
+                                        &flutter::StandardMethodCodec::GetInstance()))
 {
+    // event handler
+    auto handlerEvent = std::make_unique<flutter::StreamHandlerFunctions<EncodableValue>>(
+                                        [&](const EncodableValue *, std::unique_ptr<flutter::EventSink<EncodableValue> > && events)
+                                                                       -> std::unique_ptr<flutter::StreamHandlerError<EncodableValue> > 
+                                        {
+                                            std::cout << "got event sink" << std::endl;
+
+                                            m_eventSink = std::move(events);
+                                            return nullptr;
+                                        },
+                                        [&](const EncodableValue *) -> std::unique_ptr<flutter::StreamHandlerError<EncodableValue> > 
+                                        {
+                                            std::cout << "reset event sink" << std::endl;
+
+                                            m_eventSink = nullptr;
+                                            return nullptr;
+                                        });
+
+    m_eventChannel->SetStreamHandler(std::move(handlerEvent));
 
 }
 
 //******************************************************************************
 //******************************************************************************
-PluginController::PluginController(QObject *parent)
+PluginController::PluginController(flutter::PluginRegistrar * registrar, QObject *parent)
     : QObject(parent)
-    , m_p(new impl(this))
+    , m_p(new impl(this, registrar))
 {
     // Вызывается после обработки пуша.
     // Узнать что делать с этим дальше.
@@ -113,7 +161,13 @@ PluginController::PluginController(QObject *parent)
             [this](bool status) 
             {
                 qWarning() << "Push system is" << (status ? "available" : "not available");
-                m_p->m_notificationsChannel.InvokeMethod("Messaging#onReadinessChanged", Encodable(status));
+                if (m_p->m_eventSink)
+                {
+                    EncodableMap event { {"method", "Messaging#onReadinessChanged"},
+                                         {"status", status} };
+                    m_p->m_eventSink->Success(EncodableValue(event));
+                }
+                // m_p->m_notificationsChannel.InvokeMethod("Messaging#onReadinessChanged", Encodable(status));
             });
 
     connect(m_p->m_notificationsClient,
@@ -127,7 +181,13 @@ PluginController::PluginController(QObject *parent)
             [this]() 
             {
                 qWarning() << "Push system have problems with registrationId";
-                m_p->m_notificationsChannel.InvokeMethod("Messaging#onRegistrationError", Encodable("Push system have problems with registrationId"));
+                if (m_p->m_eventSink)
+                {
+                    EncodableMap event { {"method", "Messaging#onRegistrationError"},
+                                         {"error", "Push system have problems with registrationId"} };
+                    m_p->m_eventSink->Success(EncodableValue(event));
+                }
+                // m_p->m_notificationsChannel.InvokeMethod("Messaging#onRegistrationError", Encodable("Push system have problems with registrationId"));
             });
 
     // Обработка пушей
@@ -155,11 +215,17 @@ PluginController::PluginController(QObject *parent)
 
                     // emit pushMessageReceived(push);
 
-                    Encodable::Map pushParams;
-                    pushParams.emplace(std::make_pair(Encodable("title"), Encodable(push.title.toStdString())));
-                    pushParams.emplace(std::make_pair(Encodable("message"), Encodable(push.message.toStdString())));
+                    if (m_p->m_eventSink)
+                    {
+                        EncodableMap pushParams { { "title", push.title.toStdString()      },
+                                                  { "message", push.message.toStdString() }};
 
-                    m_p->m_notificationsChannel.InvokeMethod("Messaging#onMessage", pushParams);
+                        EncodableMap event { {"method", "Messaging#onMessage"},
+                                             {"params", pushParams} };
+
+                        m_p->m_eventSink->Success(EncodableValue(event));
+                    }
+                    // m_p->m_notificationsChannel.InvokeMethod("Messaging#onMessage", pushParams);
                 }
             });
 }
@@ -239,5 +305,12 @@ void PluginController::_setRegistrationId(const QString &registrationId)
 
     emit registrationIdChanged(registrationId);
 
-    m_p->m_notificationsChannel.InvokeMethod("Messaging#applicationRegistered", Encodable(registrationId.toStdString()));
+    if (m_p->m_eventSink)
+    {
+        EncodableMap event { {"method", "Messaging#applicationRegistered"},
+                             {"registrationId", registrationId.toStdString()} };
+        m_p->m_eventSink->Success(EncodableValue(event));
+    }
+
+    // m_p->m_notificationsChannel.InvokeMethod("Messaging#applicationRegistered", Encodable(registrationId.toStdString()));
 }

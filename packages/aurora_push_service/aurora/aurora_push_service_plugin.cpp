@@ -8,14 +8,38 @@
 //******************************************************************************
 //******************************************************************************
 
-#include "aurora_push_service/plugincontroller.h"
-#include "aurora_push_service/pluginservice.h"
-
 #include <aurora_push_service/aurora_push_service_plugin.h>
-#include <flutter/method-channel.h>
+#include <aurora_push_service/encodable_helper.h>
+#include <aurora_push_service/plugincontroller.h>
+#include <aurora_push_service/pluginservice.h>
+
+#include <flutter/encodable_value.h>
+#include <flutter/method_channel.h>
+#include <flutter/standard_method_codec.h>
+#include <flutter/event_channel.h>
+#include <flutter/event_stream_handler_functions.h>
 
 #include <QtDBus/QtDBus>
 #include <QtCore/QString>
+
+//******************************************************************************
+//******************************************************************************
+
+// Flutter encodable
+typedef flutter::EncodableValue EncodableValue;
+typedef flutter::EncodableMap   EncodableMap;
+typedef flutter::EncodableList  EncodableList;
+// Flutter methods
+typedef flutter::MethodChannel<EncodableValue> MethodChannel;
+typedef flutter::MethodCall<EncodableValue>    MethodCall;
+typedef flutter::MethodResult<EncodableValue>  MethodResult;
+
+//******************************************************************************
+//******************************************************************************
+namespace Channels 
+{
+    const char * Methods = "friflex/aurora_push_service";
+} // namespace Channels
 
 //******************************************************************************
 //******************************************************************************
@@ -23,74 +47,122 @@ class AuroraPushServicePlugin::impl
 {
     friend class AuroraPushServicePlugin;
 
+    //
+    AuroraPushServicePlugin * m_o;
+
+    //
+    flutter::PluginRegistrar * m_registrar;
+
+    // 
+    std::unique_ptr<MethodChannel> m_methodChannel;
+
+    //
     std::shared_ptr<PluginController> m_controller;
+    
+    //
     std::shared_ptr<PluginService>    m_service;
+
+    //
+    impl(AuroraPushServicePlugin * owner, flutter::PluginRegistrar * registrar);
+
+    //
+    void onMethodCall(const MethodCall & call,
+                        std::unique_ptr<MethodResult> result);
+
+    //
+    void unimplemented(const MethodCall & call,
+                        std::unique_ptr<MethodResult> & result);
+
+    //
+    void onInit(const MethodCall & call,
+                        std::unique_ptr<MethodResult> & result);
 };
 
 //******************************************************************************
 //******************************************************************************
-AuroraPushServicePlugin::AuroraPushServicePlugin()
-    : PluginInterface()
-    , m_p(new impl)
+AuroraPushServicePlugin::impl::impl(AuroraPushServicePlugin * owner, flutter::PluginRegistrar * registrar)
+    : m_o(owner)
+    , m_registrar(registrar)
+    , m_methodChannel(new MethodChannel(registrar->messenger(), 
+                                        Channels::Methods,
+                                        &flutter::StandardMethodCodec::GetInstance()))
+{
+    // method handlers
+    m_methodChannel->SetMethodCallHandler([this](const MethodCall & call, std::unique_ptr<MethodResult> result)
+    {
+        onMethodCall(call, std::move(result));
+    });
+}
+
+//******************************************************************************
+//******************************************************************************
+void AuroraPushServicePlugin::RegisterWithRegistrar(flutter::PluginRegistrar * registrar) 
+{
+    // Create plugin
+    std::unique_ptr<AuroraPushServicePlugin> plugin(new AuroraPushServicePlugin(registrar));
+
+    // Register plugin
+    registrar->AddPlugin(std::move(plugin));
+}
+
+//******************************************************************************
+//******************************************************************************
+AuroraPushServicePlugin::AuroraPushServicePlugin(flutter::PluginRegistrar * registrar)
+    : m_p(new impl(this, registrar))
 {
     qDebug() << Q_FUNC_INFO;
 }
 
 //******************************************************************************
 //******************************************************************************
-void AuroraPushServicePlugin::RegisterWithRegistrar(PluginRegistrar &registrar)
+void AuroraPushServicePlugin::impl::onMethodCall(const MethodCall & call,
+                                                std::unique_ptr<MethodResult> result)
 {
-    registrar.RegisterMethodChannel("friflex/aurora_push_service",
-                                    MethodCodecType::Standard,
-                                    [this](const MethodCall &call) 
-                                    { 
-                                        this->onMethodCall(call); 
-                                    });
-}
+    const std::string & method = call.method_name();
 
-//******************************************************************************
-//******************************************************************************
-void AuroraPushServicePlugin::onMethodCall(const MethodCall & call)
-{
-    const auto &method = call.GetMethod();
+    std::cout << "CALL " << method << std::endl;
 
     if (method == "Messaging#init") 
     {
-        init(call);
+        onInit(call, result);
         return;
     }
 
-    unimplemented(call);
+    unimplemented(call, result);
 }
 
 //******************************************************************************
 //******************************************************************************
-void AuroraPushServicePlugin::init(const MethodCall & call)
+void AuroraPushServicePlugin::impl::unimplemented(const MethodCall & /*call*/,
+                                                std::unique_ptr<MethodResult> & result)
+{
+    std::cout << __func__ << std::endl;
+    result->Success();
+}
+
+//******************************************************************************
+//******************************************************************************
+void AuroraPushServicePlugin::impl::onInit(const MethodCall & call,
+                    std::unique_ptr<MethodResult> & result)
 {
     qDebug() << Q_FUNC_INFO;
 
-    m_p->m_service.reset(new PluginService(qApp));
-    m_p->m_controller.reset(new PluginController(qApp));
+    m_service.reset(new PluginService(qApp));
+    m_controller.reset(new PluginController(m_registrar, qApp));
 
-    QObject::connect(m_p->m_service.get(),    &PluginService::guiRequested,
-                     m_p->m_controller.get(), &PluginController::showGui);
+    QObject::connect(m_service.get(),    &PluginService::guiRequested,
+                     m_controller.get(), &PluginController::showGui);
 
-    const std::string applicationId = call.GetArgument<Encodable::String>("applicationId");
+    const EncodableMap params = Helper::GetValue<EncodableMap>(*call.arguments());
+
+    const std::string applicationId = Helper::GetString(params, "applicationId");
     if (applicationId.empty())
     {
-        call.SendErrorResponse("-1", "Empty application ID", nullptr);
+        result->Error("-1", "Empty application ID", nullptr);
         return;
     }
 
-    m_p->m_controller->setApplicationId(QString::fromStdString(applicationId));
+    m_controller->setApplicationId(QString::fromStdString(applicationId));
 
-    call.SendSuccessResponse(nullptr);
-}
-
-//******************************************************************************
-//******************************************************************************
-void AuroraPushServicePlugin::unimplemented(const MethodCall &call)
-{
-    //  TODO(mozerrr): заменить на void SendErrorResponse(const std::string &code, const std::string &message, const Encodable &details) const;
-    call.SendSuccessResponse(nullptr);
+    result->Success(EncodableValue(nullptr));
 }

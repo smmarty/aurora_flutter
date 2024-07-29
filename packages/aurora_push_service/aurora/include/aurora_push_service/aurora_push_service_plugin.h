@@ -10,28 +10,19 @@
 #ifndef FLUTTER_PLUGIN_AURORA_PUSH_SERVICE_PLUGIN_H
 #define FLUTTER_PLUGIN_AURORA_PUSH_SERVICE_PLUGIN_H
 
-#include <flutter/plugin-interface.h>
 #include <aurora_push_service/globals.h>
-
-#include <QtCore/QObject>
-
-#include <memory>
+#include <flutter/plugin_registrar.h>
 
 //******************************************************************************
 //******************************************************************************
-class PLUGIN_EXPORT AuroraPushServicePlugin final : public PluginInterface
+class PLUGIN_EXPORT AuroraPushServicePlugin final : public flutter::Plugin
 {
 public:
-    AuroraPushServicePlugin();
-    
+    static void RegisterWithRegistrar(flutter::PluginRegistrar * registrar);
+
 public:
-    void RegisterWithRegistrar(PluginRegistrar &registrar) override;
-
-private:
-    void onMethodCall(const MethodCall &call);
-    void init(const MethodCall &call);
-    void unimplemented(const MethodCall &call);
-
+    AuroraPushServicePlugin(flutter::PluginRegistrar * registrar);
+    
 private:
     class impl;
     std::shared_ptr<impl> m_p;
