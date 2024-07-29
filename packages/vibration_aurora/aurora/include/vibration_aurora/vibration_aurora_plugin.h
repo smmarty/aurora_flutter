@@ -10,20 +10,22 @@
 
 //******************************************************************************
 //******************************************************************************
+#include <flutter/plugin_registrar.h>
 #include <vibration_aurora/globals.h>
-#include <flutter/plugin-interface.h>
 
 #include <memory>
 
 //******************************************************************************
 //******************************************************************************
-class PLUGIN_EXPORT VibrationAuroraPlugin final : public PluginInterface 
+class PLUGIN_EXPORT VibrationAuroraPlugin final : public flutter::Plugin
 {
 public:
-    void RegisterWithRegistrar(PluginRegistrar & registrar) override;
-  
-    VibrationAuroraPlugin();
+    VibrationAuroraPlugin(flutter::PluginRegistrar * registrar);
     virtual ~VibrationAuroraPlugin();
+
+public:
+    static void RegisterWithRegistrar(flutter::PluginRegistrar * registrar);
+  
 
 private:
     class impl;

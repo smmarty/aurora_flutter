@@ -5,18 +5,20 @@
 //******************************************************************************
 //******************************************************************************
 
+#include "encodable_helper.h"
+
 #include <vibration_aurora/vibration_aurora_plugin.h>
 
-#include <flutter/basic-message-channel.h>
-#include <flutter/encodable.h>
-#include <flutter/event-channel.h>
-#include <flutter/method-channel.h>
-#include <flutter/plugin-registrar.h>
-#include <flutter/message-codec-type.h>
-#include <flutter/method-codec-type.h>
+#include <flutter/encodable_value.h>
+#include <flutter/method_channel.h>
+#include <flutter/standard_method_codec.h>
+
 #include <unistd.h>
 
 #include <QFeedbackEffect> 
+
+typedef flutter::MethodCall<flutter::EncodableValue> MethodCall;
+typedef flutter::MethodResult<flutter::EncodableValue> MethodResult;
 
 //******************************************************************************
 //******************************************************************************
@@ -35,28 +37,42 @@ class VibrationAuroraPlugin::impl
     friend class VibrationAuroraPlugin;
 
     // 
-    impl();
+    impl(VibrationAuroraPlugin * owner, flutter::PluginRegistrar * registrar);
 
     // 
-    void unimplemented(const MethodCall & call);
+    void unimplemented(const MethodCall & call, std::unique_ptr<MethodResult> & result);
 
     // 
-    void onMethodCall(const MethodCall & call);
+    void onMethodCall(const MethodCall & call, std::unique_ptr<MethodResult> result);
 
+    //
+    VibrationAuroraPlugin * m_o;
 
+    //
+    std::unique_ptr<flutter::MethodChannel<flutter::EncodableValue> > m_methodChannel;
+
+    //
     QFeedbackHapticsEffect m_vibro;
 };
 
 //******************************************************************************
 //******************************************************************************
-VibrationAuroraPlugin::impl::impl()
+VibrationAuroraPlugin::impl::impl(VibrationAuroraPlugin * owner, flutter::PluginRegistrar * registrar)
+    : m_o(owner)
+    , m_methodChannel(new flutter::MethodChannel(registrar->messenger(), 
+                                                    g_channelName,
+                                                    &flutter::StandardMethodCodec::GetInstance()))
 {
+    m_methodChannel->SetMethodCallHandler([this](const MethodCall & call, std::unique_ptr<MethodResult> result)
+    {
+        onMethodCall(call, std::move(result));
+    });
 }
 
 //******************************************************************************
 //******************************************************************************
-VibrationAuroraPlugin::VibrationAuroraPlugin()
-  : m_p(new impl)
+VibrationAuroraPlugin::VibrationAuroraPlugin(flutter::PluginRegistrar * registrar)
+  : m_p(new impl(this, registrar))
 {        
 }
 
@@ -68,50 +84,55 @@ VibrationAuroraPlugin::~VibrationAuroraPlugin()
 
 //******************************************************************************
 //******************************************************************************
-void VibrationAuroraPlugin::RegisterWithRegistrar(PluginRegistrar & registrar) 
+// static
+void VibrationAuroraPlugin::RegisterWithRegistrar(flutter::PluginRegistrar * registrar)
 {
-    registrar.RegisterMethodChannel(g_channelName,
-                                    MethodCodecType::Standard,
-                                    [this](const MethodCall & call) 
-                                    { 
-                                        m_p->onMethodCall(call); 
-                                    });
-
+    std::unique_ptr<VibrationAuroraPlugin> plugin(new VibrationAuroraPlugin(registrar));
+    registrar->AddPlugin(std::move(plugin));
 }
 
 //******************************************************************************
 //******************************************************************************
-void VibrationAuroraPlugin::impl::unimplemented(const MethodCall& call) 
+void VibrationAuroraPlugin::impl::unimplemented(const MethodCall & /*call*/,
+                                                std::unique_ptr<MethodResult> & result) 
 {
     std::cout << __func__ << std::endl;
-    call.SendSuccessResponse(nullptr);
+    result->Success(nullptr);
 }
 
 //******************************************************************************
 //******************************************************************************
-int64_t int64Arg(const MethodCall & call, const std::string & name)
+int intArg(const MethodCall & call, const std::string & name, const int defaultValue = -1)
 {
-    return call.GetArgument<int64_t>(Encodable(name));
+    if (Helper::TypeIs<flutter::EncodableMap>(*call.arguments())) 
+    {
+        const flutter::EncodableMap params = Helper::GetValue<flutter::EncodableMap>(*call.arguments());
+        return Helper::GetInt(params, name);
+    }
+
+    return defaultValue;
 }
 
 //******************************************************************************
 //******************************************************************************
-void VibrationAuroraPlugin::impl::onMethodCall(const MethodCall & call)
+void VibrationAuroraPlugin::impl::onMethodCall(const MethodCall & call,
+                                                std::unique_ptr<MethodResult> result)
 {
-    const auto & method = call.GetMethod();
+    const auto & method = call.method_name();
 
     std::cout << "CALL " << method << std::endl;;
 
     if (method == g_vibrate)
     {
-        int64_t duration  = int64Arg(call, "duration");
-        int64_t amplitude = int64Arg(call, "amplitude");
+        int64_t duration  = intArg(call, "duration");
+        int64_t amplitude = intArg(call, "amplitude");
 
         m_vibro.setIntensity(static_cast<double>(amplitude) / 256);
         m_vibro.setDuration(duration);
 
         m_vibro.start();
 
+        result->Success(nullptr);
         return;
     }
 
@@ -119,8 +140,9 @@ void VibrationAuroraPlugin::impl::onMethodCall(const MethodCall & call)
     {
         m_vibro.stop();
 
+        result->Success(nullptr);
         return;
     }
 
-    unimplemented(call);
+    unimplemented(call, result);
 }
