@@ -18,6 +18,7 @@
 #include <QtPositioning/QGeoSatelliteInfo>
 
 #include <QtCore/QProcess>
+#include <QtCore/QEventLoop>
 #include <QtCore/QTimer>
 #include <QtCore/QUrl>
 #include <QtGui/QDesktopServices>
@@ -113,9 +114,10 @@ LocationAuroraPlugin::impl::impl(LocationAuroraPlugin * owner, flutter::PluginRe
 
     // TODO error handling
     // QObject::connect(m_positionSource.get(), 
-    //         &QGeoPositionInfoSource::errorOccurred,
-    //         [this](const QGeoPositionInfoSource::Error positioningError)
+    //         &QGeoPositionInfoSource::error,
+    //         [this](QGeoPositionInfoSource::Error positioningError)
     //         {
+    //             // std::cout << "QGeoPositionInfoSource::Error received " << positioningError << std::endl;
     //         });
 
     m_positionSource->startUpdates();
@@ -224,9 +226,28 @@ void LocationAuroraPlugin::impl::onGetLocation(const MethodCall & /*call*/,
     if (!m_positionInfo.isValid())
     {
         m_positionSource->startUpdates();
-        
-        result->Success();
-        return;
+
+        QEventLoop loop;
+     
+        // 90 sec timeout
+        for (uint32_t i = 0; i < 900 && !m_positionInfo.isValid(); ++i)
+        {
+            QTimer::singleShot(100, &loop, SLOT(quit()));
+            loop.exec();
+
+            if (m_positionInfo.isValid())
+            {
+                break;
+            }
+        }   
+
+        if (!m_positionInfo.isValid())
+        {
+            std::cout << "No position, exited" << std::endl;
+
+            result->Success();
+            return;
+        }
     }
 
     if (!m_active)
