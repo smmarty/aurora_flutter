@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 name: location_aurora
 description: The Aurora OS implementation of location_aurora.
-version: 1.1.0
+version: 1.1.1
 #homepage: https://pub-aurora.friflex.com/packages/location_aurora
 homepage: https://github.com/smmarty/aurora_flutter/tree/main/packages/location_aurora
 repository: https://github.com/smmarty/aurora_flutter/tree/main/packages/location_aurora
