@@ -45,28 +45,30 @@ class _GetLocationState extends State<_GetLocationWidget> {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Location: ${_error ?? '${_location ?? "unknown"}'}',
+            'LocationData: ${_error ?? _result}',
             style: Theme.of(context).textTheme.bodyLarge,
           ),
-          Row(
-            children: [
-              ElevatedButton(
-                onPressed: _getLocation,
-                child: _loading
-                    ? const CircularProgressIndicator(
-                        color: Colors.white,
-                      )
-                    : const Text('Get location'),
-              )
-            ],
-          ),
+          ElevatedButton(
+            onPressed: _getLocation,
+            child: _loading
+                ? const CircularProgressIndicator()
+                : const Text('Get location'),
+          )
         ],
       ),
     );
+  }
+
+  String get _result {
+    if (_location == null) {
+      return 'unknown';
+    } else {
+      return '\nlatitude: ${_location?.latitude},\nlongitude: ${_location?.longitude}';
+    }
   }
 }
