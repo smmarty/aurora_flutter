@@ -1,3 +1,6 @@
+## 0.2.0+4
+* Updated for Aurora v5
+
 ## 0.2.0+3
 * Сделан единообразный нейминг aurora_push_service [#6](https://github.com/smmarty/aurora_flutter/pull/6).
 Спасибо [@sinxwal](https://github.com/sinxwal) за контрибьют!
