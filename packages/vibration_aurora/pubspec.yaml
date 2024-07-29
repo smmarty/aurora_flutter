@@ -1,6 +1,6 @@
 name: vibration_aurora
 description: A plugin for handling Vibration API on Aurora OS
-version: 0.1.0
+version: 0.1.1
 #homepage: https://pub-aurora.friflex.com/packages/vibration_aurora
 homepage: https://github.com/smmarty/aurora_flutter/tree/main/packages/vibration_aurora
 repository: https://github.com/smmarty/aurora_flutter/tree/main/packages/vibration_aurora
