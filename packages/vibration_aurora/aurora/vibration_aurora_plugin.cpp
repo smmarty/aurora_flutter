@@ -68,8 +68,8 @@ private:
     QFeedbackHapticsEffect m_vibro;
 
     //
-    std::vector<uint64_t> m_pattern;
-    size_t                m_currentPosition;
+    std::vector<int> m_pattern;
+    size_t           m_currentPosition;
 };
 
 //******************************************************************************
@@ -85,7 +85,7 @@ VibrationAuroraPlugin::impl::impl(VibrationAuroraPlugin * owner, flutter::Plugin
         onMethodCall(call, std::move(result));
     });
 
-    connect(&m_vibro, &QFeedbackHapticsEffect::stateChanged, this, &VibrationAuroraPlugin::impl::onVibroState);
+    // connect(&m_vibro, &QFeedbackHapticsEffect::stateChanged, this, &VibrationAuroraPlugin::impl::onVibroState);
 }
 
 //******************************************************************************
@@ -134,6 +134,19 @@ int intArg(const MethodCall & call, const std::string & name, const int defaultV
 
 //******************************************************************************
 //******************************************************************************
+std::vector<int> vecIntArg(const MethodCall & call, const std::string & name, const std::vector<int> defaultValue = {})
+{
+    if(Helper::TypeIs<flutter::EncodableMap>(*call.arguments())) 
+    {
+        const flutter::EncodableMap params = Helper::GetValue<flutter::EncodableMap>(*call.arguments());
+        return Helper::GetVectorInt(params, name);
+    }
+
+    return defaultValue;
+}
+
+//******************************************************************************
+//******************************************************************************
 void VibrationAuroraPlugin::impl::onMethodCall(const MethodCall & call,
                                                 std::unique_ptr<MethodResult> result)
 {
@@ -143,20 +156,21 @@ void VibrationAuroraPlugin::impl::onMethodCall(const MethodCall & call,
 
     if (method == g_vibrate)
     {
-        if (pattern)
+        m_pattern = vecIntArg(call, "pattern");
+        if (m_pattern.size())
         {
-            m_pattern         = vecIntArg(call, "pattern");
             m_currentPosition = 0;
 
-            QTimer::singleShot(m_pattern[m_currentPosition], &VibrationAuroraPlugin::impl::onTimer);
+            std::cout << "pause " << m_pattern[m_currentPosition] << "ms" << std::endl;
+            QTimer::singleShot(m_pattern[m_currentPosition], this, &VibrationAuroraPlugin::impl::onTimer);
 
             ++m_currentPosition;            
         }
 
         else
         {
-            int64_t duration  = intArg(call, "duration");
-            int64_t amplitude = intArg(call, "amplitude");
+            int64_t duration  = intArg(call, "duration", 500);
+            int64_t amplitude = intArg(call, "amplitude", 255);
 
             m_vibro.setIntensity(static_cast<double>(amplitude) / 256);
             m_vibro.setDuration(duration);
@@ -183,16 +197,21 @@ void VibrationAuroraPlugin::impl::onMethodCall(const MethodCall & call,
 //******************************************************************************
 void VibrationAuroraPlugin::impl::onTimer()
 {
+    // std::cout << __func__ << std::endl;
+
     if (m_currentPosition >= m_pattern.size())
     {
         // end of pattern
         return;
     }
 
-    m_vibro.setIntensity(static_cast<double>(amplitude) / 256);
+    m_vibro.setIntensity(static_cast<double>(255) / 256);
     m_vibro.setDuration(m_pattern[m_currentPosition]);
 
     m_vibro.start();
+
+    std::cout << "vibro " << m_pattern[m_currentPosition] << "ms" << std::endl;
+    QTimer::singleShot(m_pattern[m_currentPosition], this, &VibrationAuroraPlugin::impl::onVibroState);
 
     ++m_currentPosition;
 }
@@ -201,10 +220,12 @@ void VibrationAuroraPlugin::impl::onTimer()
 //******************************************************************************
 void VibrationAuroraPlugin::impl::onVibroState()
 {
-    if (m_vibro.state() != stopped)
-    {
-        return;
-    }
+    // std::cout << __func__ << " state " << static_cast<int>(m_vibro.state()) << std::endl;
+
+    // if (m_vibro.state() != QFeedbackEffect::Stopped)
+    // {
+    //     return;
+    // }
 
     if (m_currentPosition >= m_pattern.size())
     {
@@ -212,7 +233,8 @@ void VibrationAuroraPlugin::impl::onVibroState()
         return;
     }
 
-    QTimer::singleShot(m_pattern[m_currentPosition], &VibrationAuroraPlugin::impl::onTimer);
+    std::cout << "pause " << m_pattern[m_currentPosition] << "ms" << std::endl;
+    QTimer::singleShot(m_pattern[m_currentPosition], this, &VibrationAuroraPlugin::impl::onTimer);
 
     ++m_currentPosition;
 }
