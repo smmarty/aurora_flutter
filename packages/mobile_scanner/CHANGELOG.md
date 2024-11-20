@@ -1,3 +1,6 @@
+## 5.1.2
+* Fix mobile scanner on Aurora for vertical devices
+
 ## 5.1.1+1
 * Initial release of supporting OS Aurora
 
