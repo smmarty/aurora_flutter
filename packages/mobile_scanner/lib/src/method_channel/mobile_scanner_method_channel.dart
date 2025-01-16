@@ -73,7 +73,7 @@ class MethodChannelMobileScanner extends MobileScannerPlatform {
 
     if (defaultTargetPlatform == TargetPlatform.android ||
         defaultTargetPlatform == TargetPlatform.iOS ||
-        // defaultTargetPlatform == TargetPlatform.aurora) {
+        defaultTargetPlatform == TargetPlatform.aurora ||
         defaultTargetPlatform == TargetPlatform.linux) {
       final double? width = event['width'] as double?;
       final double? height = event['height'] as double?;
